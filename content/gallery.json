@@ -1,12 +1,6 @@
 {
   "items": [
     {
-      "id": "g1",
-      "caption": "Finale du tournoi interne 2025",
-      "tone": "primary",
-      "image": ""
-    },
-    {
       "tone": "primary",
       "id": "photo-test-mai",
       "caption": "test de photo",
