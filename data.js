@@ -1,0 +1,119 @@
+// Shared static content for the BadinCaulnes site.
+// News and events are loaded separately at runtime from /content/*.json
+// (which is where the Decap CMS publishes).
+window.BC_DATA = {
+  club: {
+    name: "BadinCaulnes",
+    short: "BC",
+    tagline: "Le club de badminton de Caulnes",
+    city: "Caulnes",
+    department: "Côtes-d'Armor",
+    founded: 2008,
+    members: 43,
+    courts: 7,
+    venue: {
+      name: "Complexe sportif Léon Pellan",
+      address: "Rue de la Hutte aux Renards, 22350 Caulnes",
+      hours: "Lundi · Mercredi · Vendredi · Samedi",
+    },
+    contact: {
+      email: "contact@badincaulnes.fr",
+      phone: "+33 2 96 88 51 04",
+      facebook: "badincaulnes",
+      instagram: "@badincaulnes",
+    },
+    season: "2025 – 2026",
+  },
+
+  // Stats for hero / about
+  stats: [
+    { value: "43",  label: "Licenciés"        },
+    { value: "7",   label: "Terrains"         },
+  ],
+
+  team: [
+    { name: "Hélène Marchand",  role: "Présidente",       since: "2022", initials: "HM", tone: "primary" },
+    { name: "Karim Benoît",      role: "Vice-président",   since: "2024", initials: "KB", tone: "info" },
+    { name: "Pauline Riou",      role: "Trésorière",       since: "2023", initials: "PR", tone: "success" },
+    { name: "Mathilde Le Goff",  role: "Responsable jeunes (BE2)", since: "2020", initials: "ML", tone: "warning" },
+    { name: "Yann Tanguy",       role: "Capitaine équipe 1", since: "2021", initials: "YT", tone: "primary" },
+    { name: "Sophie Quéré",      role: "Secrétaire",       since: "2024", initials: "SQ", tone: "info" },
+  ],
+
+  slots: [
+    { day: "Lundi",    start: "18:00", end: "19:30", level: "Jeunes 8-12 ans",       coach: "Mathilde L.", courts: 4, tone: "success" },
+    { day: "Lundi",    start: "19:30", end: "21:30", level: "Loisir adulte",          coach: "Encadrement bénévole", courts: 6, tone: "info" },
+    { day: "Mercredi", start: "17:00", end: "18:30", level: "Jeunes 13-15 ans",      coach: "Mathilde L.", courts: 4, tone: "success" },
+    { day: "Mercredi", start: "18:30", end: "20:00", level: "Compétition jeunes",    coach: "Mathilde L. + Yann T.", courts: 4, tone: "primary" },
+    { day: "Mercredi", start: "20:00", end: "22:30", level: "Compétition adulte",    coach: "Yann T.", courts: 6, tone: "primary" },
+    { day: "Vendredi", start: "19:00", end: "22:30", level: "Loisir adulte",          coach: "Encadrement bénévole", courts: 6, tone: "info" },
+    { day: "Samedi",   start: "10:00", end: "12:00", level: "Famille & débutants",   coach: "Sophie Q.",   courts: 6, tone: "warning" },
+  ],
+
+  pricing: [
+    {
+      id: "p1",
+      title: "Jeunes",
+      sub: "8 – 17 ans",
+      price: 95,
+      tone: "success",
+      perks: ["Tous les créneaux jeunes", "Stages vacances inclus", "Licence FFBaD jeune", "Prêt de raquette"],
+      cta: "Inscrire un jeune",
+    },
+    {
+      id: "p2",
+      title: "Loisir",
+      sub: "Adulte non-compétiteur",
+      price: 135,
+      tone: "info",
+      perks: ["Lundi · Vendredi · Samedi", "Licence FFBaD loisir", "Tournoi interne inclus", "Accès libre samedi matin"],
+      cta: "Choisir Loisir",
+      featured: true,
+    },
+    {
+      id: "p3",
+      title: "Compétition",
+      sub: "Adulte FFBaD",
+      price: 175,
+      tone: "primary",
+      perks: ["Tous les créneaux", "Licence FFBaD compétition", "Engagements interclubs pris en charge", "Coaching dédié mercredi"],
+      cta: "Choisir Compétition",
+    },
+    {
+      id: "p4",
+      title: "Famille",
+      sub: "À partir de 3 licenciés",
+      price: 320,
+      tone: "warning",
+      perks: ["Tarif dégressif", "Créneau famille du samedi", "Stages jeunes inclus", "1 tee-shirt club offert"],
+      cta: "Voir le pack",
+    },
+  ],
+
+  gallery: [
+    { id: "g1", caption: "Finale du tournoi interne 2025",      tone: "primary"  },
+    { id: "g2", caption: "Stage jeunes — vacances de printemps", tone: "success"  },
+    { id: "g3", caption: "Interclubs vs Lannion",                tone: "info"     },
+    { id: "g4", caption: "Forum des associations 2025",          tone: "warning"  },
+    { id: "g5", caption: "Soirée club — décembre",                tone: "neutral"  },
+    { id: "g6", caption: "Demi-finale double mixte",              tone: "primary"  },
+    { id: "g7", caption: "Initiation parents-enfants",            tone: "success"  },
+    { id: "g8", caption: "Tournoi régional — Dinan",              tone: "info"     },
+    { id: "g9", caption: "L'équipe 1, saison 2025-2026",          tone: "primary"  },
+  ],
+
+  faq: [
+    { q: "À quel âge peut-on commencer ?",
+      a: "Dès 8 ans, sur les créneaux jeunes du lundi et mercredi. Une période d'essai de 2 séances est offerte." },
+    { q: "Faut-il son propre matériel ?",
+      a: "Non, le club prête raquettes et volants pour les premières séances. Nous avons un partenariat tarif licencié avec Larde Sport (Saint-Brieuc)." },
+    { q: "Comment fonctionne la licence FFBaD ?",
+      a: "Elle est incluse dans la cotisation annuelle. Elle vous donne accès aux tournois officiels et à l'assurance fédérale." },
+    { q: "Le club est-il accessible aux compétiteurs ?",
+      a: "Oui — une équipe en interclubs D3 et une équipe en R3 régional. Engagements en tournois FFBaD pris en charge sur le tarif Compétition." },
+  ],
+
+  // News and events are loaded asynchronously — see content-loader.js
+  news: [],
+  events: [],
+};

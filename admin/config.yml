@@ -1,0 +1,77 @@
+# Decap CMS configuration for the BadinCaulnes site.
+# Edited content is committed back to the Git repository on every save.
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: 'Ajout {{collection}} « {{slug}} »'
+    update: 'Mise à jour {{collection}} « {{slug}} »'
+    delete: 'Suppression {{collection}} « {{slug}} »'
+
+# Where uploaded images go.
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# UI locale.
+locale: fr
+
+# Force the CMS to write nice, readable JSON arrays (one file per collection).
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  - name: "news"
+    label: "Actualités"
+    label_singular: "Actualité"
+    description: "Articles publiés sur la page d'accueil et dans la rubrique Actualités."
+    files:
+      - file: "content/news.json"
+        label: "Liste des actualités"
+        name: "news_list"
+        fields:
+          - label: "Actualités"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: "Identifiant interne", name: "id",    widget: "string", hint: "Court, sans espace, ex: actu-2026-juin-tournoi" }
+              - { label: "Titre",               name: "title", widget: "string" }
+              - { label: "Date",                name: "date",  widget: "date", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY" }
+              - label: "Rubrique"
+                name: "category"
+                widget: "select"
+                options: ["Compétition", "Club", "Jeunes", "Pratique"]
+                default: "Club"
+              - { label: "Résumé",     name: "excerpt", widget: "text", hint: "2 à 3 phrases qui s'affichent en aperçu." }
+              - { label: "Auteur",     name: "author",  widget: "string", default: "Bureau" }
+              - { label: "Nombre de lectures", name: "reads", widget: "number", required: false, default: 0, value_type: "int" }
+
+  - name: "events"
+    label: "Agenda"
+    label_singular: "Événement"
+    description: "Tournois, interclubs, événements conviviaux à venir."
+    files:
+      - file: "content/events.json"
+        label: "Liste des événements"
+        name: "events_list"
+        fields:
+          - label: "Événements"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.date}} — {{fields.title}}"
+            fields:
+              - { label: "Identifiant interne", name: "id",    widget: "string", hint: "Court, sans espace, ex: tournoi-juin-2026" }
+              - { label: "Titre",               name: "title", widget: "string" }
+              - { label: "Date",                name: "date",  widget: "date", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY" }
+              - { label: "Horaire",             name: "time",  widget: "string", hint: "Ex: 19:00 – 22:30" }
+              - { label: "Lieu",                name: "place", widget: "string", default: "Gymnase Léon Pellan" }
+              - label: "Type d'événement"
+                name: "kind"
+                widget: "select"
+                options: ["Tournoi", "Interclubs", "Découverte", "Convivial", "Officiel"]
+                default: "Tournoi"
+              - { label: "Description",         name: "description", widget: "text" }
+              - { label: "Inscrits actuels",    name: "participants", widget: "number", default: 0, value_type: "int" }
+              - { label: "Capacité totale",     name: "capacity",     widget: "number", default: 0, value_type: "int", hint: "Mettre 0 si pas de limite." }

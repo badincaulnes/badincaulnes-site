@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>BadinCaulnes — Club de badminton de Caulnes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="BadinCaulnes — club de badminton de Caulnes (22). Actualités, agenda, créneaux d'entraînement, tarifs et inscription." />
+<link rel="icon" type="image/png" href="assets/logo-badincaulnes-256.png">
+<!-- Netlify Identity widget — picks up an invitation link arriving in the URL
+     and shows the password-set modal for new bureau members. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #fff; }
+  iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
+</head>
+<body>
+<iframe src="directions/direction-a.html" title="BadinCaulnes" data-screen-label="Site BadinCaulnes"></iframe>
+<script>
+  // If a bureau member clicks an invitation email, redirect them to /admin/
+  // once they've set their password.
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
+</body>
+</html>

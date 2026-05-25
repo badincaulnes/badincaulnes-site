@@ -1,0 +1,243 @@
+/* OVHcloud Design System — colors and type tokens
+ * Sourced from packages/themes/src/default/_variables.scss + index.scss
+ * https://github.com/ovh/design-system
+ */
+
+/* ── Fonts ───────────────────────────────────────────── */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 200 900;
+  font-stretch: normal;
+  font-display: fallback;
+  src: url('fonts/source-sans3-variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 200 900;
+  font-stretch: normal;
+  font-display: fallback;
+  src: url('fonts/source-sans3-variable-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 200 900;
+  font-stretch: normal;
+  font-display: fallback;
+  src: url('fonts/source-code-pro.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: italic;
+  font-weight: 200 900;
+  font-stretch: normal;
+  font-display: fallback;
+  src: url('fonts/source-code-pro-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'ODS Icon';
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url('fonts/ods-icon.woff') format('woff'),
+       url('fonts/ods-icon.ttf')  format('truetype');
+}
+
+:root {
+  /* ── Brand palette (raw) ───────────────────────────── */
+  --ods-palette-deep-sapphire: #00185e;   /* heading text, dark hero */
+  --ods-palette-twilight:      #4d5592;   /* body text */
+  --ods-palette-royal-fuschia: #ac246f;
+  --ods-palette-deep-orange:   #df3602;
+  --ods-palette-dusty-orange:  #ed733d;   /* brand orange */
+  --ods-palette-bright-gold:   #ffd124;   /* brand yellow */
+  --ods-palette-kiwi-green:    #a6d64d;   /* brand green */
+  --ods-palette-turquoise-blue:#73e3ff;   /* brand sky blue */
+  --ods-palette-bright-cyan:   #47fffa;   /* "new" badge */
+  --ods-palette-bright-green:  #47fe78;   /* "beta" badge */
+  --ods-palette-canary-yellow: #fbfe47;   /* "alpha" badge */
+  --ods-palette-light-yellow-green: #dffe81; /* "eco" badge */
+  --ods-palette-inch-worm:     #ccff66;   /* "promotion" badge */
+
+  /* ── Primary (Blue) ────────────────────────────────── */
+  --ods-color-primary-000: #ffffff;
+  --ods-color-primary-025: #f3fdff;
+  --ods-color-primary-050: #e6faff;
+  --ods-color-primary-075: #cef5ff;
+  --ods-color-primary-100: #bef1ff;
+  --ods-color-primary-200: #85d9fd;
+  --ods-color-primary-300: #4bb2f6;
+  --ods-color-primary-400: #157eea;
+  --ods-color-primary-500: #0050d7;   /* PRIMARY action */
+  --ods-color-primary-600: #002dbe;
+  --ods-color-primary-700: #000e9c;   /* MASTER BRAND blue */
+  --ods-color-primary-800: #00185e;
+  --ods-color-primary-900: #000d1f;
+
+  /* ── Neutral (Gray) ────────────────────────────────── */
+  --ods-color-neutral-000: #ffffff;
+  --ods-color-neutral-025: #f9f9f9;
+  --ods-color-neutral-050: #f2f2f2;
+  --ods-color-neutral-075: #ececec;
+  --ods-color-neutral-100: #e6e6e6;
+  --ods-color-neutral-200: #cccccc;
+  --ods-color-neutral-300: #b3b3b3;
+  --ods-color-neutral-400: #999999;
+  --ods-color-neutral-500: #808080;
+  --ods-color-neutral-600: #666666;
+  --ods-color-neutral-700: #4d4d4d;
+  --ods-color-neutral-800: #333333;
+  --ods-color-neutral-900: #1a1a1a;
+
+  /* ── Success (Green) ───────────────────────────────── */
+  --ods-color-success-000: #ffffff;
+  --ods-color-success-025: #f3fbeb;
+  --ods-color-success-050: #e7f7d7;
+  --ods-color-success-075: #ddf5d1;
+  --ods-color-success-100: #d2f2c2;
+  --ods-color-success-200: #90cc7a;
+  --ods-color-success-300: #64b347;
+  --ods-color-success-400: #47991f;
+  --ods-color-success-500: #2b8000;
+  --ods-color-success-600: #267300;
+  --ods-color-success-700: #226600;
+  --ods-color-success-800: #1a4d00;
+  --ods-color-success-900: #113300;
+
+  /* ── Warning (Orange) ──────────────────────────────── */
+  --ods-color-warning-000: #ffffff;
+  --ods-color-warning-025: #fffbe5;
+  --ods-color-warning-050: #fff7cc;
+  --ods-color-warning-075: #feefa4;
+  --ods-color-warning-100: #feea86;
+  --ods-color-warning-200: #fed265;
+  --ods-color-warning-300: #ffbb43;
+  --ods-color-warning-400: #ffa322;
+  --ods-color-warning-500: #ff8b00;
+  --ods-color-warning-600: #cc7000;
+  --ods-color-warning-700: #995400;
+  --ods-color-warning-800: #663800;
+  --ods-color-warning-900: #4d2a00;
+
+  /* ── Critical (Red) ────────────────────────────────── */
+  --ods-color-critical-000: #ffffff;
+  --ods-color-critical-025: #fff3f5;
+  --ods-color-critical-050: #ffe6ec;
+  --ods-color-critical-075: #ffd9e3;
+  --ods-color-critical-100: #ffccd9;
+  --ods-color-critical-200: #ef99ab;
+  --ods-color-critical-300: #e67386;
+  --ods-color-critical-400: #cf334e;
+  --ods-color-critical-500: #bf0020;
+  --ods-color-critical-600: #a6001c;
+  --ods-color-critical-700: #800015;
+  --ods-color-critical-800: #660011;
+  --ods-color-critical-900: #4d000d;
+
+  /* Information mirrors Primary (blue ramp) */
+  --ods-color-information-100: var(--ods-color-primary-100);
+  --ods-color-information-500: var(--ods-color-primary-500);
+  --ods-color-information-700: var(--ods-color-primary-700);
+
+  /* ── Brand colors ──────────────────────────────────── */
+  --ods-color-brand-masterbrand: #000e9c;   /* primary 700 */
+  --ods-color-brand-dark-blue:   #00185e;
+  --ods-color-brand-skyblue:     #73e3ff;
+  --ods-color-brand-yellow:      #ffd124;
+  --ods-color-brand-orange:      #ed733d;
+  --ods-color-brand-green:       #a6d64d;
+
+  /* ── Status badge colors (signature ODS swatches) ──── */
+  --ods-color-alpha:     #fbfe47;
+  --ods-color-beta:      #47fe78;
+  --ods-color-new:       #47fffa;
+  --ods-color-promotion: #ccff66;
+  --ods-color-eco:       #dffe81;
+
+  /* ── Theme semantic ────────────────────────────────── */
+  --ods-theme-text-color:         #4d5592;          /* twilight */
+  --ods-theme-heading-text-color: #00185e;          /* deep sapphire */
+  --ods-theme-background-color:   #ffffff;
+  --ods-theme-anchor-text-color:         var(--ods-color-primary-500);
+  --ods-theme-anchor-text-color-hover:   var(--ods-color-primary-600);
+  --ods-theme-anchor-text-color-visited: var(--ods-color-primary-700);
+  --ods-theme-brand-color:        var(--ods-color-primary-700);
+  --ods-theme-overlay-box-shadow: 0 2px 8px rgba(0, 14, 156, 0.2);
+  --ods-theme-backdrop-background-color: var(--ods-color-primary-500);
+  --ods-theme-backdrop-opacity:   0.75;
+
+  /* ── Radius / borders ──────────────────────────────── */
+  --ods-border-radius-xs: 2px;
+  --ods-border-radius-sm: 4px;
+  --ods-border-radius-md: 8px;
+  --ods-border-radius-lg: 16px;
+  --ods-theme-border-radius: 8px;
+  --ods-theme-border-width:  1px;
+  --ods-border-width-sm: 1px;
+  --ods-border-width-md: 2px;
+
+  /* ── Spacing (theme atoms) ─────────────────────────── */
+  --ods-theme-column-gap:         8px;
+  --ods-theme-row-gap:            8px;
+  --ods-theme-padding-horizontal: 8px;
+  --ods-theme-padding-vertical:   8px;
+
+  /* ── Outline / focus ───────────────────────────────── */
+  --ods-outline-color-default: var(--ods-color-primary-700);
+  --ods-outline-style-default: solid;
+  --ods-outline-width:  2px;
+  --ods-outline-offset: 2px;
+
+  /* ── Motion ────────────────────────────────────────── */
+  --ods-theme-transition-duration: 300ms;
+
+  /* ── Breakpoints (px values) ───────────────────────── */
+  --ods-breakpoint-sub-mobile:   360px;
+  --ods-breakpoint-mobile:       576px;
+  --ods-breakpoint-tablet:       768px;
+  --ods-breakpoint-desktop:      992px;
+  --ods-breakpoint-large-screen: 1200px;
+  --ods-breakpoint-widescreen:   1400px;
+
+  /* ── Forms ─────────────────────────────────────────── */
+  --ods-form-element-input-height: 32px;
+
+  /* ── Type ──────────────────────────────────────────── */
+  --ods-theme-font-family:      'Source Sans Pro', 'Trebuchet MS', arial, 'Segoe UI', sans-serif;
+  --ods-theme-font-family-code: 'Source Code Pro', monospace;
+}
+
+/* ── Base + semantic typography ───────────────────────── */
+html { font-family: var(--ods-theme-font-family); color: var(--ods-theme-text-color); }
+body { margin: 0; }
+
+h1, .ods-h1 { margin: 0; font-weight: 700; font-size: 36px; color: var(--ods-theme-heading-text-color); }
+h2, .ods-h2 { margin: 0; font-weight: 700; font-size: 28px; color: var(--ods-theme-heading-text-color); }
+h3, .ods-h3 { margin: 0; font-weight: 700; font-size: 24px; color: var(--ods-theme-heading-text-color); }
+h4, .ods-h4 { margin: 0; font-weight: 700; font-size: 20px; color: var(--ods-theme-heading-text-color); }
+h5, .ods-h5 { margin: 0; font-weight: 700; font-size: 18px; color: var(--ods-theme-heading-text-color); }
+h6, .ods-h6 { margin: 0; font-weight: 700; font-size: 16px; color: var(--ods-theme-heading-text-color); }
+
+p,  .ods-p     { margin: 0; font-size: 16px; font-weight: 400; color: var(--ods-theme-text-color); }
+.ods-label     { font-size: 16px; font-weight: 600; color: var(--ods-theme-text-color); }
+.ods-caption   { font-size: 12px; font-weight: 400; color: var(--ods-theme-text-color); }
+.ods-small     { font-size: 14px; font-weight: 400; color: var(--ods-theme-text-color); }
+.ods-blockquote{
+  margin: 0; padding-left: 12px;
+  border-left: 2px solid var(--ods-color-primary-500);
+  font-size: 16px; font-weight: 400; color: var(--ods-theme-text-color);
+}
+code, .ods-code{
+  font-family: var(--ods-theme-font-family-code);
+  font-size: 16px; font-weight: 400; color: var(--ods-theme-text-color);
+}
+
+a, .ods-link{
+  color: var(--ods-theme-anchor-text-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+a:hover, .ods-link:hover { color: var(--ods-theme-anchor-text-color-hover); text-decoration: underline; }
+a:visited { color: var(--ods-theme-anchor-text-color-visited); }

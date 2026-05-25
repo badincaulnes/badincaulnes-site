@@ -1,0 +1,68 @@
+[
+  {
+    "id": "e1",
+    "date": "2026-06-01",
+    "time": "19:00 – 22:30",
+    "title": "Tournoi interne de fin de saison",
+    "place": "Gymnase Léon Pellan",
+    "kind": "Tournoi",
+    "participants": 48,
+    "capacity": 64,
+    "description": "Format double, tirage au sort niveaux mélangés. Buffet partagé en clôture."
+  },
+  {
+    "id": "e2",
+    "date": "2026-06-07",
+    "time": "09:00 – 17:00",
+    "title": "Interclubs — journée 9 à domicile",
+    "place": "Gymnase Léon Pellan",
+    "kind": "Interclubs",
+    "participants": 24,
+    "capacity": 32,
+    "description": "BadinCaulnes 1 reçoit Lannion, BadinCaulnes 2 reçoit Loudéac. Encouragements bienvenus."
+  },
+  {
+    "id": "e3",
+    "date": "2026-06-14",
+    "time": "10:00 – 18:00",
+    "title": "Journée portes ouvertes",
+    "place": "Gymnase Léon Pellan",
+    "kind": "Découverte",
+    "participants": 0,
+    "capacity": 80,
+    "description": "Initiation gratuite, matériel prêté. Idéal pour découvrir le club avant l'inscription 2026-2027."
+  },
+  {
+    "id": "e4",
+    "date": "2026-06-21",
+    "time": "18:30 – 23:00",
+    "title": "Fête du club & remise des prix",
+    "place": "Salle des fêtes de Caulnes",
+    "kind": "Convivial",
+    "participants": 102,
+    "capacity": 140,
+    "description": "Repas partagé, remise des trophées, photo officielle de la saison."
+  },
+  {
+    "id": "e5",
+    "date": "2026-07-05",
+    "time": "08:30 – 19:00",
+    "title": "Tournoi régional FFBaD",
+    "place": "Dinan — gymnase de la Fontaine-des-Eaux",
+    "kind": "Officiel",
+    "participants": 12,
+    "capacity": 12,
+    "description": "12 licenciés engagés en simple et double. Covoiturage organisé."
+  },
+  {
+    "id": "e6",
+    "date": "2026-08-30",
+    "time": "14:00 – 17:00",
+    "title": "Forum des associations",
+    "place": "Place de la Mairie, Caulnes",
+    "kind": "Découverte",
+    "participants": 0,
+    "capacity": 0,
+    "description": "Stand BadinCaulnes — inscriptions saison 2026-2027 et démonstrations."
+  }
+]

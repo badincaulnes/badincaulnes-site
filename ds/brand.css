@@ -1,0 +1,110 @@
+/* BadinCaulnes brand tokens — derived from the official club logo.
+ * Sampled colors:
+ *   navy   #07324c  — BAD IN, silhouettes, circle, structural ink
+ *   teal   #2c91ad  — CAUL
+ *   slate  #6f838c  — N (a.k.a. "the city of Caulnes" middle hue)
+ *   lime   #bbd366  — ES
+ * These hues form the visible "split" of the Caulnes letters and
+ * govern the rest of the site's palette.
+ */
+
+:root {
+  /* Raw brand palette */
+  --bc-navy:       #07324c;
+  --bc-navy-deep:  #041e30;
+  --bc-navy-mid:   #0e4a6c;
+  --bc-navy-tint:  #dbe7ee;
+  --bc-navy-tint2: #f1f6f9;
+
+  --bc-teal:       #2c91ad;
+  --bc-teal-deep:  #1f6e83;
+  --bc-teal-tint:  #e0f0f5;
+
+  --bc-slate:      #6f838c;
+  --bc-slate-deep: #4f6470;
+  --bc-slate-tint: #ecf0f2;
+
+  --bc-lime:       #bbd366;
+  --bc-lime-deep:  #8fa843;
+  --bc-lime-tint:  #f4f9e1;
+
+  /* Repoint a handful of ODS theme tokens so all built-in components
+   * (.ods-btn, .ods-link, .ods-message--info, focus rings, etc.)
+   * adopt the BadinCaulnes hues automatically. We keep the rest of
+   * ODS intact — only the "primary"/brand mapping is repainted. */
+  --ods-color-primary-025: var(--bc-navy-tint2);
+  --ods-color-primary-050: #e6f1f6;
+  --ods-color-primary-075: var(--bc-teal-tint);
+  --ods-color-primary-100: #c8e0e8;
+  --ods-color-primary-200: #a9cfdc;
+  --ods-color-primary-300: #79b6c8;
+  --ods-color-primary-400: #4ba1b9;
+  --ods-color-primary-500: var(--bc-teal);          /* primary action */
+  --ods-color-primary-600: var(--bc-teal-deep);
+  --ods-color-primary-700: var(--bc-navy);          /* masterbrand */
+  --ods-color-primary-800: var(--bc-navy-deep);
+  --ods-color-primary-900: #02121f;
+
+  --ods-color-information-100: var(--bc-teal-tint);
+  --ods-color-information-500: var(--bc-teal);
+  --ods-color-information-700: var(--bc-navy);
+
+  --ods-color-brand-masterbrand: var(--bc-navy);
+  --ods-color-brand-dark-blue:   var(--bc-navy-deep);
+  --ods-color-brand-skyblue:     var(--bc-teal);
+  --ods-color-brand-green:       var(--bc-lime);
+
+  --ods-theme-text-color:         #4a5b65;          /* warm slate */
+  --ods-theme-heading-text-color: var(--bc-navy);
+  --ods-theme-anchor-text-color:        var(--bc-teal);
+  --ods-theme-anchor-text-color-hover:  var(--bc-teal-deep);
+  --ods-theme-anchor-text-color-visited:var(--bc-navy);
+  --ods-theme-brand-color:        var(--bc-navy);
+
+  --ods-theme-overlay-box-shadow: 0 2px 12px rgba(7, 50, 76, 0.22);
+  --ods-overlay-shadow:           0 2px 12px rgba(7, 50, 76, 0.22);
+  --ods-outline-color-default:    var(--bc-teal);
+  --ods-theme-backdrop-background-color: var(--bc-navy);
+}
+
+/* "Caulnes" wordmark colorization. Each letter wrapped in a span gets
+ * its logo color, regardless of the surrounding context. */
+.bc-caulnes { letter-spacing: -.005em; }
+.bc-caulnes > :nth-child(-n+4) { color: var(--bc-teal); }       /* C A U L */
+.bc-caulnes > :nth-child(5)    { color: var(--bc-slate); }      /* N */
+.bc-caulnes > :nth-child(n+6)  { color: var(--bc-lime-deep); }  /* E S — deepened for AA contrast on white */
+
+/* On dark hero backgrounds, the "ES" needs to stay readable — bump it back to bright lime */
+.bc-on-dark .bc-caulnes > :nth-child(n+6) { color: var(--bc-lime); }
+.bc-on-dark .bc-caulnes > :nth-child(5)   { color: #b6c4cc; }
+
+/* Brand chip swatch styles used by the news / event "tone" mapping */
+.bc-tone-primary { background: var(--bc-teal-tint);  color: var(--bc-navy); }
+.bc-tone-info    { background: var(--bc-navy-tint2); color: var(--bc-navy); }
+.bc-tone-success { background: var(--bc-lime-tint);  color: var(--bc-lime-deep); }
+.bc-tone-warning { background: #fff1d1;              color: #8a5b00; }
+.bc-tone-neutral { background: var(--bc-slate-tint); color: var(--bc-slate-deep); }
+
+/* Photo placeholders — repainted with brand palette so the website
+ * feels coherent even without real photography in place. */
+.bc-photo--blue::before  { background: linear-gradient(135deg, var(--bc-navy-deep) 0%, var(--bc-navy) 60%, var(--bc-teal) 110%) !important; }
+.bc-photo--cyan::before  { background: linear-gradient(135deg, var(--bc-navy) 0%, var(--bc-teal) 60%, #87c8d8 110%) !important; }
+.bc-photo--gold::before  { background: linear-gradient(135deg, var(--bc-navy) 0%, var(--bc-teal-deep) 40%, var(--bc-lime) 110%) !important; }
+.bc-photo--green::before { background: linear-gradient(135deg, var(--bc-navy) 0%, var(--bc-lime-deep) 60%, var(--bc-lime) 110%) !important; }
+.bc-photo--orange::before{ background: linear-gradient(135deg, var(--bc-navy) 0%, var(--bc-slate) 60%, var(--bc-lime) 110%) !important; }
+.bc-photo--mono::before  { background: linear-gradient(135deg, var(--bc-navy-deep) 0%, var(--bc-slate) 100%) !important; }
+
+/* The hero "navbar mark" — slot the actual logo image */
+.bc-logo-img {
+  display: block;
+  object-fit: contain;
+}
+
+/* Buttons — repoint the default .ods-btn (no variant) to navy instead of teal,
+ * so primary CTAs use the brand's anchor color. Outlines/ghosts stay teal. */
+.ods-btn:not([class*="--"]),
+.ods-btn:where(.ods-btn--md, .ods-btn--sm, .ods-btn--xs):not([class*="--primary"], [class*="--neutral"], [class*="--critical"], [class*="--success"], [class*="--warning"], [class*="--info"]) {
+  --bg: var(--bc-navy);
+  --bg-hover: var(--bc-navy-mid);
+  --bg-active: var(--bc-navy-deep);
+}

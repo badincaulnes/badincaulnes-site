@@ -1,0 +1,79 @@
+/* Project-wide overrides on top of ODS tokens. */
+html, body { font-family: var(--ods-theme-font-family); -webkit-font-smoothing: antialiased; }
+body { color: var(--ods-theme-text-color); background: #fff; }
+* { box-sizing: border-box; }
+button { font-family: inherit; }
+
+/* Bigger display heads for marketing surfaces */
+.bc-display { font-weight: 800; line-height: 1.02; letter-spacing: -0.022em; color: var(--ods-color-primary-800); }
+.bc-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 700 12px/1 var(--ods-theme-font-family);
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--ods-color-primary-700);
+}
+.bc-eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--ods-color-primary-700); }
+.bc-eyebrow--light { color: rgba(255,255,255,.78); }
+.bc-eyebrow--light::before { background: var(--ods-color-brand-yellow); }
+
+/* News tone colors used in both directions */
+.bc-tone-primary { background: var(--ods-color-primary-100); color: var(--ods-color-primary-800); }
+.bc-tone-info    { background: var(--ods-color-primary-050); color: var(--ods-color-primary-700); }
+.bc-tone-success { background: var(--ods-color-success-100); color: var(--ods-color-success-800); }
+.bc-tone-warning { background: var(--ods-color-warning-100); color: var(--ods-color-warning-800); }
+.bc-tone-neutral { background: var(--ods-color-neutral-100); color: var(--ods-color-neutral-700); }
+
+/* Shuttlecock-as-bullet shared SVG asset */
+.bc-bullet {
+  display: inline-block; width: 14px; height: 14px;
+  background: currentColor;
+  -webkit-mask: var(--bc-shuttle-mask) center/contain no-repeat;
+          mask: var(--bc-shuttle-mask) center/contain no-repeat;
+}
+
+/* Placeholder photo — used in gallery & hero stand-ins */
+.bc-photo {
+  position: relative;
+  background: var(--ods-color-neutral-050);
+  overflow: hidden;
+  border-radius: 8px;
+}
+.bc-photo::before, .bc-photo::after { content: ""; position: absolute; inset: 0; }
+.bc-photo--blue::before  { background: linear-gradient(135deg, #001a8a 0%, #0050d7 60%, #157eea 100%); }
+.bc-photo--cyan::before  { background: linear-gradient(135deg, #00185e 0%, #0050d7 50%, #73e3ff 100%); }
+.bc-photo--gold::before  { background: linear-gradient(135deg, #00185e 0%, #002dbe 55%, #ffd124 110%); }
+.bc-photo--green::before { background: linear-gradient(135deg, #00185e 0%, #226600 55%, #a6d64d 110%); }
+.bc-photo--orange::before{ background: linear-gradient(135deg, #00185e 0%, #bf0020 55%, #ed733d 110%); }
+.bc-photo--mono::before  { background: linear-gradient(135deg, #1a1a1a 0%, #4d4d4d 100%); }
+.bc-photo::after {
+  background:
+    radial-gradient(circle at 28% 32%, rgba(255,255,255,.16) 0 22%, transparent 23%),
+    radial-gradient(circle at 72% 68%, rgba(0,0,0,.18) 0 18%, transparent 19%);
+  mix-blend-mode: overlay;
+}
+.bc-photo__label {
+  position: absolute; left: 12px; bottom: 12px; right: 12px;
+  font: 600 13px var(--ods-theme-font-family); color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  z-index: 2;
+}
+
+/* Stats */
+.bc-stat-num {
+  font: 800 56px/1 var(--ods-theme-font-family);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.bc-stat-lab {
+  font: 600 12px/1.3 var(--ods-theme-font-family);
+  text-transform: uppercase; letter-spacing: .12em;
+}
+
+/* Sticky page chrome that doesn't fight design_canvas isolation */
+.bc-app { position: relative; min-height: 900px; background: #fff; }
+
+/* Utility — clean focus ring matching ODS */
+.bc-focus:focus-visible {
+  outline: 2px solid var(--ods-color-primary-700);
+  outline-offset: 2px;
+}
