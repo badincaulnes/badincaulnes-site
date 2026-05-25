@@ -60,11 +60,13 @@
     }));
   }
 
-  // Fetch, with a small fallback array if the file isn't reachable yet
-  // (e.g. before first publication or during local file:// browsing).
+  // Fetch, with a small fallback if the file isn't reachable yet
+  // (e.g. before first publication). Decap CMS writes the file as
+  // { "items": [ ... ] } so we unwrap that here.
   function loadJSON(name) {
     return fetch(new URL(name, base).toString(), { cache: 'no-store' })
-      .then((r) => (r.ok ? r.json() : []))
+      .then((r) => (r.ok ? r.json() : { items: [] }))
+      .then((data) => Array.isArray(data) ? data : (data.items || []))
       .catch(() => []);
   }
 
