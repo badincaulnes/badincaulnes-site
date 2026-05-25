@@ -1,0 +1,13 @@
+{
+  "items": [
+    { "id": "g1", "caption": "Finale du tournoi interne 2025",       "tone": "primary", "image": "" },
+    { "id": "g2", "caption": "Stage jeunes — vacances de printemps", "tone": "success", "image": "" },
+    { "id": "g3", "caption": "Interclubs vs Lannion",                "tone": "info",    "image": "" },
+    { "id": "g4", "caption": "Forum des associations 2025",          "tone": "warning", "image": "" },
+    { "id": "g5", "caption": "Soirée club — décembre",               "tone": "neutral", "image": "" },
+    { "id": "g6", "caption": "Demi-finale double mixte",             "tone": "primary", "image": "" },
+    { "id": "g7", "caption": "Initiation parents-enfants",           "tone": "success", "image": "" },
+    { "id": "g8", "caption": "Tournoi régional — Dinan",             "tone": "info",    "image": "" },
+    { "id": "g9", "caption": "L'équipe 1, saison 2025-2026",         "tone": "primary", "image": "" }
+  ]
+}

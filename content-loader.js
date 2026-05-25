@@ -74,12 +74,14 @@
   window.BC_DATA_READY = Promise.all([
     loadJSON('news.json'),
     loadJSON('events.json'),
-  ]).then(([news, events]) => {
+    loadJSON('gallery.json'),
+  ]).then(([news, events, gallery]) => {
     // Sort: newest news first, soonest events first.
     const sortedNews = decorateNews(news).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
     const sortedEvents = decorateEvents(events).sort((a, b) => (a.date.iso || '').localeCompare(b.date.iso || ''));
     window.BC_DATA.news = sortedNews;
     window.BC_DATA.events = sortedEvents;
+    window.BC_DATA.gallery = gallery || [];
     return window.BC_DATA;
   });
 })();

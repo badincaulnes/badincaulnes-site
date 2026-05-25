@@ -552,7 +552,8 @@ function PricingPage() {
 /* -----------------------------------------------------------------
    PAGE — Gallery
 ----------------------------------------------------------------- */
-function GalleryPage() {
+function GalleryPage({ gallery }) {
+  const items = (gallery && gallery.length) ? gallery : D.gallery || [];
   return (
     <>
       <PageHero
@@ -562,8 +563,15 @@ function GalleryPage() {
       />
       <section className="a-section">
         <div className="a-gallery">
-          {D.gallery.map((g, i) => (
-            <PhotoTile key={g.id} tone={g.tone} caption={g.caption} />
+          {items.map((g, i) => (
+            g.image
+              ? (
+                  <div key={g.id} className="bc-photo" style={{ background: '#000' }}>
+                    <img src={g.image} alt={g.caption || ''} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                    {g.caption && <div className="bc-photo__label">{g.caption}</div>}
+                  </div>
+                )
+              : <PhotoTile key={g.id} tone={g.tone} caption={g.caption} />
           ))}
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 32 }}>
@@ -1021,14 +1029,16 @@ function App() {
   const [page, setPage] = useState("home");
   const [news, setNews] = useState(D.news || []);
   const [events, setEvents] = useState(D.events || []);
+  const [gallery, setGallery] = useState(D.gallery || []);
   const [loaded, setLoaded] = useState(!!(D.news && D.news.length));
 
-  // Pull news + events from /content/*.json on mount.
+  // Pull news + events + gallery from /content/*.json on mount.
   React.useEffect(() => {
     if (window.BC_DATA_READY) {
       window.BC_DATA_READY.then((data) => {
         setNews(data.news || []);
         setEvents(data.events || []);
+        setGallery(data.gallery || []);
         setLoaded(true);
       });
     } else {
@@ -1050,7 +1060,7 @@ function App() {
       {page === "about"    && <AboutPage />}
       {page === "training" && <TrainingPage />}
       {page === "pricing"  && <PricingPage />}
-      {page === "gallery"  && <GalleryPage />}
+      {page === "gallery"  && <GalleryPage gallery={gallery} />}
       {page === "contact"  && <ContactPage />}
       {page === "admin"    && <AdminPage   news={news} events={events} addNews={addNews} addEvent={addEvent} removeNews={removeNews} removeEvent={removeEvent} />}
       <Footer setPage={setPage} />

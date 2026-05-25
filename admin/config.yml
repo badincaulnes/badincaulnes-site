@@ -16,7 +16,6 @@ public_folder: "/assets/uploads"
 # UI locale.
 locale: fr
 
-# Force the CMS to write nice, readable JSON arrays (one file per collection).
 slug:
   encoding: "ascii"
   clean_accents: true
@@ -75,3 +74,27 @@ collections:
               - { label: "Description",         name: "description", widget: "text" }
               - { label: "Inscrits actuels",    name: "participants", widget: "number", default: 0, value_type: "int" }
               - { label: "Capacité totale",     name: "capacity",     widget: "number", default: 0, value_type: "int", hint: "Mettre 0 si pas de limite." }
+
+  - name: "gallery"
+    label: "Galerie"
+    label_singular: "Photo"
+    description: "Photos affichées sur la page Galerie du site."
+    files:
+      - file: "content/gallery.json"
+        label: "Photos de la galerie"
+        name: "gallery_list"
+        fields:
+          - label: "Photos"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: "Identifiant interne", name: "id",      widget: "string", hint: "Court, sans espace, ex: photo-tournoi-2026" }
+              - { label: "Légende",             name: "caption", widget: "string", hint: "Texte affiché en bas de la photo." }
+              - { label: "Photo",               name: "image",   widget: "image", required: false, allow_multiple: false, hint: "Glissez-déposez une image (JPG ou PNG, idéalement format paysage 3:2)." }
+              - label: "Couleur de remplacement"
+                name: "tone"
+                widget: "select"
+                options: ["primary", "info", "success", "warning", "neutral"]
+                default: "primary"
+                hint: "Couleur affichée si aucune photo n'est uploadée. Laisser sur 'primary' en cas de doute."
