@@ -1,15 +1,6 @@
 {
   "items": [
     {
-      "id": "n1",
-      "category": "Compétition",
-      "date": "2026-05-12",
-      "title": "Victoire de l'équipe 1 en interclubs D3",
-      "excerpt": "Les Caulnais l'emportent 6-2 à Dinan et sécurisent leur maintien à deux journées du terme.",
-      "author": "Karim B.",
-      "reads": 218
-    },
-    {
       "id": "n2",
       "category": "Club",
       "date": "2026-05-08",
@@ -19,15 +10,6 @@
       "reads": 96
     },
     {
-      "id": "n3",
-      "category": "Jeunes",
-      "date": "2026-05-02",
-      "title": "Le stage de printemps a fait carton plein",
-      "excerpt": "32 jeunes de 8 à 15 ans réunis pendant trois jours autour de Mathilde L. (BE2) et de l'équipe d'encadrement.",
-      "author": "Mathilde L.",
-      "reads": 174
-    },
-    {
       "id": "n4",
       "category": "Pratique",
       "date": "2026-04-28",
@@ -35,14 +17,6 @@
       "excerpt": "Le complexe sportif sera fermé toute la journée. Les créneaux du soir sont annulés.",
       "author": "Bureau",
       "reads": 311
-    },
-    {
-      "category": "Club",
-      "author": "Bureau",
-      "reads": 0,
-      "id": "2026-05-25-test",
-      "title": "Test de l'intégration netify",
-      "excerpt": "je fais un test pour voir si ca fonctionne"
     }
   ]
 }
