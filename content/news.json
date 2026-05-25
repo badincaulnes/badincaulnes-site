@@ -35,6 +35,14 @@
       "excerpt": "Le complexe sportif sera fermé toute la journée. Les créneaux du soir sont annulés.",
       "author": "Bureau",
       "reads": 311
+    },
+    {
+      "category": "Club",
+      "author": "Bureau",
+      "reads": 0,
+      "id": "2026-05-25-test",
+      "title": "Test de l'intégration netify",
+      "excerpt": "je fais un test pour voir si ca fonctionne"
     }
   ]
 }
