@@ -568,7 +568,7 @@ function PricingPage() {
       <PageHero
         crumb="Accueil · Inscription"
         title="Une licence, trois séances par semaine."
-        lead="Une formule unique pour adhérer au club, simple et claire — licence FFBaD et assurance incluses. Possibilité de régler en plusieurs fois sans frais."
+        lead="Une formule unique pour adhérer au club, simple et claire — licence FFBaD et assurance incluses. À partir de la mi-saison, la cotisation passe à 25 €."
       />
       <section className="a-section">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 48, alignItems: 'flex-start' }}>
@@ -594,16 +594,16 @@ function PricingPage() {
               </div>
               <div style={{ marginTop: 8, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,.16)', fontSize: 13, color: 'rgba(255,255,255,.78)', lineHeight: 1.5 }}>
                 <i className="ods-icon ods-icon--circle-info" style={{ marginRight: 6 }}></i>
-                Paiement en 1, 2 ou 3 fois. Pass'Sport et coupons ANCV acceptés.
+                Tarif unique pour la saison complète. À partir de la mi-saison, la cotisation passe à 25 €.
               </div>
             </article>
 
             <div className="ods-message ods-message--info" style={{ padding: 18, alignItems: 'flex-start', borderRadius: 12, marginTop: 24 }}>
               <i className="ods-icon ods-icon--lightbulb" style={{ fontSize: 18 }}></i>
               <div>
-                <div className="ods-message__title" style={{ fontSize: 14, marginBottom: 4 }}>Bon plan</div>
+                <div className="ods-message__title" style={{ fontSize: 14, marginBottom: 4 }}>Venir essayer avant</div>
                 <p style={{ fontSize: 13, lineHeight: 1.5 }}>
-                  Pass'Sport (70 € pour les 6-19 ans bénéficiaires) et coupons ANCV acceptés.
+                  Vous pouvez passer une première séance gratuitement, matériel prêté.
                 </p>
               </div>
             </div>

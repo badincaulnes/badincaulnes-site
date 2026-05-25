@@ -14,7 +14,7 @@ window.BC_DATA = {
     venue: {
       name: "Complexe sportif Léon Pellan",
       address: "Rue de la Hutte aux Renards, 22350 Caulnes",
-      hours: "Lundi · Mercredi · Vendredi · Samedi",
+      hours: "Lundi · Jeudi · Dimanche",
     },
     contact: {
       email: "contact@badincaulnes.fr",
@@ -41,52 +41,27 @@ window.BC_DATA = {
   ],
 
   slots: [
-    { day: "Lundi",    start: "18:00", end: "19:30", level: "Jeunes 8-12 ans",       coach: "Mathilde L.", courts: 4, tone: "success" },
-    { day: "Lundi",    start: "19:30", end: "21:30", level: "Loisir adulte",          coach: "Encadrement bénévole", courts: 6, tone: "info" },
-    { day: "Mercredi", start: "17:00", end: "18:30", level: "Jeunes 13-15 ans",      coach: "Mathilde L.", courts: 4, tone: "success" },
-    { day: "Mercredi", start: "18:30", end: "20:00", level: "Compétition jeunes",    coach: "Mathilde L. + Yann T.", courts: 4, tone: "primary" },
-    { day: "Mercredi", start: "20:00", end: "22:30", level: "Compétition adulte",    coach: "Yann T.", courts: 6, tone: "primary" },
-    { day: "Vendredi", start: "19:00", end: "22:30", level: "Loisir adulte",          coach: "Encadrement bénévole", courts: 6, tone: "info" },
-    { day: "Samedi",   start: "10:00", end: "12:00", level: "Famille & débutants",   coach: "Sophie Q.",   courts: 6, tone: "warning" },
+    { day: "Lundi",    start: "19:00", end: "22:00", level: "Loisir adulte",                       coach: "Encadrement bénévole", courts: 7, tone: "info"    },
+    { day: "Jeudi",    start: "19:00", end: "22:00", level: "Loisir adulte",                       coach: "Animateur OIS de 19:30 à 20:30", courts: 7, tone: "primary" },
+    { day: "Dimanche", start: "10:00", end: "12:00", level: "Loisir — séance dominicale",           coach: "Encadrement bénévole", courts: 7, tone: "warning" },
   ],
 
   pricing: [
     {
       id: "p1",
-      title: "Jeunes",
-      sub: "8 – 17 ans",
-      price: 95,
-      tone: "success",
-      perks: ["Tous les créneaux jeunes", "Stages vacances inclus", "Licence FFBaD jeune", "Prêt de raquette"],
-      cta: "Inscrire un jeune",
-    },
-    {
-      id: "p2",
-      title: "Loisir",
-      sub: "Adulte non-compétiteur",
-      price: 135,
-      tone: "info",
-      perks: ["Lundi · Vendredi · Samedi", "Licence FFBaD loisir", "Tournoi interne inclus", "Accès libre samedi matin"],
-      cta: "Choisir Loisir",
-      featured: true,
-    },
-    {
-      id: "p3",
-      title: "Compétition",
-      sub: "Adulte FFBaD",
-      price: 175,
+      title: "Licence Loisir",
+      sub: "Adulte — saison complète",
+      price: 50,
       tone: "primary",
-      perks: ["Tous les créneaux", "Licence FFBaD compétition", "Engagements interclubs pris en charge", "Coaching dédié mercredi"],
-      cta: "Choisir Compétition",
-    },
-    {
-      id: "p4",
-      title: "Famille",
-      sub: "À partir de 3 licenciés",
-      price: 320,
-      tone: "warning",
-      perks: ["Tarif dégressif", "Créneau famille du samedi", "Stages jeunes inclus", "1 tee-shirt club offert"],
-      cta: "Voir le pack",
+      perks: [
+        "Accès aux 3 séances de la semaine",
+        "Licence FFBaD incluse",
+        "Assurance fédérale incluse",
+        "Prêt de raquette pour les premières séances",
+        "Tarif réduit à 25 € à partir de la mi-saison",
+      ],
+      cta: "S'inscrire",
+      featured: true,
     },
   ],
 
@@ -103,14 +78,14 @@ window.BC_DATA = {
   ],
 
   faq: [
-    { q: "À quel âge peut-on commencer ?",
-      a: "Dès 8 ans, sur les créneaux jeunes du lundi et mercredi. Une période d'essai de 2 séances est offerte." },
     { q: "Faut-il son propre matériel ?",
-      a: "Non, le club prête raquettes et volants pour les premières séances. Nous avons un partenariat tarif licencié avec Larde Sport (Saint-Brieuc)." },
+      a: "Non, le club prête raquettes et volants pour les premières séances. N'hésitez pas à venir essayer." },
     { q: "Comment fonctionne la licence FFBaD ?",
       a: "Elle est incluse dans la cotisation annuelle. Elle vous donne accès aux tournois officiels et à l'assurance fédérale." },
-    { q: "Le club est-il accessible aux compétiteurs ?",
-      a: "Oui — une équipe en interclubs D3 et une équipe en R3 régional. Engagements en tournois FFBaD pris en charge sur le tarif Compétition." },
+    { q: "Y a-t-il un tarif réduit en cours de saison ?",
+      a: "Oui — à partir de la mi-saison, la cotisation passe de 50 € à 25 €. Idéal si vous voulez nous rejoindre en cours d'année." },
+    { q: "Faut-il un certificat médical ?",
+      a: "Un questionnaire santé suffit dans la majorité des cas. Un certificat médical est demandé uniquement si vous avez répondu oui à au moins une question du questionnaire." },
   ],
 
   // News and events are loaded asynchronously — see content-loader.js
