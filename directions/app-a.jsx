@@ -254,7 +254,7 @@ function HomePage({ news, events, setPage }) {
         <div className="a-section-head">
           <div>
             <div className="bc-eyebrow">Inscription</div>
-            <h2 style={{ marginTop: 10 }}>Une licence, trois séances par semaine, 50 €.</h2>
+            <h2 style={{ marginTop: 10 }}>Une cotisation, trois séances par semaine, 50 €.</h2>
           </div>
           <button className="a-link-arrow" onClick={() => setPage("pricing")}>
             Tout savoir sur l'inscription <i className="ods-icon ods-icon--arrow-right"></i>
@@ -436,8 +436,8 @@ function AboutPage() {
             <h2 style={{ marginTop: 12, fontSize: 36, letterSpacing: '-.02em' }}>De six joueurs à six terrains pleins.</h2>
             <p style={{ marginTop: 16, fontSize: 16, lineHeight: 1.6 }}>
               C'est dans la petite salle annexe du complexe sportif que tout a commencé en 2008. Six amis, deux poteaux,
-              quatre raquettes prêtées. Dix-huit ans plus tard, le club déploie ses six terrains chaque soir, accueille
-              une école de jeunes labellisée FFBaD et fait vivre deux équipes en interclubs régional.
+              quatre raquettes prêtées. Dix-huit ans plus tard, le club déploie ses sept terrains chaque séance et réunit
+              une communauté fidèle autour d'un badminton convivial et accessible à tous.
             </p>
             <p style={{ marginTop: 12, fontSize: 16, lineHeight: 1.6 }}>
               Ce qui n'a pas changé : on s'y retrouve d'abord pour le plaisir de jouer ensemble.
@@ -567,8 +567,8 @@ function PricingPage() {
     <>
       <PageHero
         crumb="Accueil · Inscription"
-        title="Une licence, trois séances par semaine."
-        lead="Une formule unique pour adhérer au club, simple et claire — licence FFBaD et assurance incluses. À partir de la mi-saison, la cotisation passe à 25 €."
+        title="Une cotisation, trois séances par semaine."
+        lead="Une formule unique pour adhérer au club, simple et claire. À partir de la mi-saison, la cotisation passe à 25 €."
       />
       <section className="a-section">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 48, alignItems: 'flex-start' }}>
@@ -731,8 +731,8 @@ function InscriptionForm() {
           <input className="ods-checkbox" type="checkbox" id="gdpr" required checked={f.gdprAccepted} onChange={update('gdprAccepted')} />
           <label htmlFor="gdpr" className="ods-check-label" style={{ fontSize: 13, lineHeight: 1.5 }}>
             J'accepte que mes données soient utilisées par BadinCaulnes pour traiter ma demande d'inscription.
-            Elles ne seront ni revendues ni partagées avec des tiers en dehors de la Fédération Française de Badminton
-            pour l'établissement de la licence.
+            Elles sont conservées uniquement le temps nécessaire à la gestion de votre adhésion et ne sont ni
+            revendues ni partagées avec des tiers.
           </label>
         </div>
         <div className="full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
@@ -1177,7 +1177,7 @@ function Footer({ setPage }) {
         <div>
           <BcLogo inverse />
           <p style={{ marginTop: 16, color: 'rgba(255,255,255,.65)', fontSize: 14, lineHeight: 1.55, maxWidth: 340 }}>
-            Club de badminton affilié à la Fédération Française de Badminton.<br />
+            Club de badminton de Caulnes — association loi 1901.<br />
             Saison {D.club.season}.
           </p>
         </div>
@@ -1205,7 +1205,7 @@ function Footer({ setPage }) {
             <li><a href="#">Dossier d'inscription</a></li>
             <li><a href="#">Règlement intérieur</a></li>
             <li><a href="#">Plan d'accès</a></li>
-            <li><a href="#">FFBaD</a></li>
+            <li><a href="#">Mairie de Caulnes</a></li>
           </ul>
         </div>
         <div>

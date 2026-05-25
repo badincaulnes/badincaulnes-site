@@ -49,14 +49,12 @@ window.BC_DATA = {
   pricing: [
     {
       id: "p1",
-      title: "Licence Loisir",
+      title: "Cotisation Loisir",
       sub: "Adulte — saison complète",
       price: 50,
       tone: "primary",
       perks: [
         "Accès aux 3 séances de la semaine",
-        "Licence FFBaD incluse",
-        "Assurance fédérale incluse",
         "Prêt de raquette pour les premières séances",
         "Tarif réduit à 25 € à partir de la mi-saison",
       ],
@@ -80,12 +78,12 @@ window.BC_DATA = {
   faq: [
     { q: "Faut-il son propre matériel ?",
       a: "Non, le club prête raquettes et volants pour les premières séances. N'hésitez pas à venir essayer." },
-    { q: "Comment fonctionne la licence FFBaD ?",
-      a: "Elle est incluse dans la cotisation annuelle. Elle vous donne accès aux tournois officiels et à l'assurance fédérale." },
     { q: "Y a-t-il un tarif réduit en cours de saison ?",
       a: "Oui — à partir de la mi-saison, la cotisation passe de 50 € à 25 €. Idéal si vous voulez nous rejoindre en cours d'année." },
-    { q: "Faut-il un certificat médical ?",
-      a: "Un questionnaire santé suffit dans la majorité des cas. Un certificat médical est demandé uniquement si vous avez répondu oui à au moins une question du questionnaire." },
+    { q: "Puis-je venir essayer avant de m'inscrire ?",
+      a: "Oui, la première séance est libre et gratuite. Passez simplement à l'un des créneaux de la semaine, le matériel est prêté." },
+    { q: "Le club organise-t-il des tournois ?",
+      a: "Oui, nous organisons un tournoi interne en fin de saison et plusieurs séances conviviales tout au long de l'année." },
   ],
 
   // News and events are loaded asynchronously — see content-loader.js
