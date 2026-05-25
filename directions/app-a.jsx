@@ -14,35 +14,84 @@ const PAGES = [
   ["agenda",   "Agenda"],
   ["about",    "Le club"],
   ["training", "Créneaux"],
-  ["pricing",  "Tarifs"],
+  ["pricing",  "Inscription"],
   ["gallery",  "Galerie"],
   ["contact",  "Contact"],
   ["admin",    "Admin"],
 ];
 
 function TopBar({ page, setPage }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close the menu after navigating + lock scroll while open.
+  React.useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const go = (k) => {
+    setPage(k);
+    setMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  };
+
   return (
     <header className="a-topbar">
-      <div onClick={() => setPage("home")} role="button">
+      <div onClick={() => go("home")} role="button">
         <BcLogo />
       </div>
       <nav className="a-nav">
         {PAGES.filter(p => p[0] !== "admin").map(([k, label]) => (
-          <button key={k} aria-current={page === k ? "page" : undefined} onClick={() => setPage(k)}>
+          <button key={k} aria-current={page === k ? "page" : undefined} onClick={() => go(k)}>
             {label}
           </button>
         ))}
       </nav>
       <div className="a-cta">
-        <button className="ods-btn ods-btn--primary-ghost ods-btn--sm" onClick={() => setPage("admin")}>
+        <button className="ods-btn ods-btn--primary-ghost ods-btn--sm" onClick={() => go("admin")}>
           <i className="ods-icon ods-icon--lock-close"></i>
           Espace admin
         </button>
-        <button className="ods-btn ods-btn--sm" onClick={() => setPage("pricing")}>
+        <button className="ods-btn ods-btn--sm" onClick={() => go("pricing")}>
           <i className="ods-icon ods-icon--user-full"></i>
           Inscription
         </button>
+        <button
+          className="a-burger"
+          aria-label="Ouvrir le menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(v => !v)}
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
+
+      {menuOpen && (
+        <div className="a-mobile-nav" role="dialog" aria-label="Menu de navigation">
+          <div className="a-mobile-nav__head">
+            <BcLogo />
+            <button
+              className="a-burger a-burger--close"
+              aria-label="Fermer le menu"
+              onClick={() => setMenuOpen(false)}
+            >
+              <span></span><span></span>
+            </button>
+          </div>
+          <nav className="a-mobile-nav__links">
+            {PAGES.filter(p => p[0] !== "admin").map(([k, label]) => (
+              <button key={k} aria-current={page === k ? "page" : undefined} onClick={() => go(k)}>
+                {label}
+                <i className="ods-icon ods-icon--arrow-right"></i>
+              </button>
+            ))}
+            <button className="a-mobile-nav__admin" onClick={() => go("admin")}>
+              <i className="ods-icon ods-icon--lock-close"></i>
+              Espace admin
+            </button>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -200,19 +249,41 @@ function HomePage({ news, events, setPage }) {
         </div>
       </section>
 
-      {/* Pricing teaser */}
+      {/* Inscription teaser */}
       <section className="a-section">
         <div className="a-section-head">
           <div>
             <div className="bc-eyebrow">Inscription</div>
-            <h2 style={{ marginTop: 10 }}>Quatre formules, une seule passion</h2>
+            <h2 style={{ marginTop: 10 }}>Une licence, trois séances par semaine, 50 €.</h2>
           </div>
           <button className="a-link-arrow" onClick={() => setPage("pricing")}>
-            Détail des tarifs <i className="ods-icon ods-icon--arrow-right"></i>
+            Tout savoir sur l'inscription <i className="ods-icon ods-icon--arrow-right"></i>
           </button>
         </div>
-        <div className="a-pricing">
-          {D.pricing.map(p => <PriceCard key={p.id} p={p} />)}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 24, maxWidth: 920 }}>
+          {D.pricing.map(p => (
+            <div key={p.id} onClick={() => setPage("pricing")} style={{ cursor: 'pointer' }}>
+              <PriceCard p={p} />
+            </div>
+          ))}
+          <div style={{
+            background: 'var(--ods-color-neutral-025)',
+            border: '1px dashed var(--ods-color-neutral-200)',
+            borderRadius: 14,
+            padding: 32,
+            display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          }}>
+            <div>
+              <h3 style={{ fontSize: 22, color: 'var(--ods-color-primary-800)', marginBottom: 8 }}>Venir essayer avant de s'inscrire ?</h3>
+              <p style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--ods-color-neutral-700)' }}>
+                Vos deux premières séances sont libres et gratuites. Le matériel est prêté.
+                Passez simplement à l'un des créneaux de la semaine.
+              </p>
+            </div>
+            <button className="ods-btn ods-btn--md ods-btn--primary-outline" onClick={() => setPage("training")}>
+              Voir les créneaux <i className="ods-icon ods-icon--arrow-right"></i>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -443,14 +514,12 @@ function TrainingPage() {
       <PageHero
         crumb="Accueil · Créneaux"
         title="Les créneaux d'entraînement"
-        lead="Quatre soirs par semaine plus le samedi matin. Vous trouverez forcément le créneau qui vous correspond, du débutant au compétiteur régional."
+        lead="Trois séances par semaine — lundi soir, jeudi soir et dimanche matin. Toutes les séances sont en jeu libre, ouvertes à tous les niveaux. Le jeudi de 19h30 à 20h30, un animateur de l'OIS est présent pour encadrer."
       />
       <section className="a-section">
         <div style={{ display: 'flex', gap: 12, marginBottom: 20, flexWrap: 'wrap' }}>
-          <span className="ods-badge ods-badge--md bc-tone-success">Jeunes</span>
-          <span className="ods-badge ods-badge--md bc-tone-info">Loisir</span>
-          <span className="ods-badge ods-badge--md bc-tone-primary">Compétition</span>
-          <span className="ods-badge ods-badge--md bc-tone-warning">Famille</span>
+          <span className="ods-badge ods-badge--md bc-tone-info">Loisir — jeu libre</span>
+          <span className="ods-badge ods-badge--md bc-tone-primary">Séance encadrée OIS</span>
         </div>
         <div className="a-week">
           <table>
@@ -471,9 +540,9 @@ function TrainingPage() {
                   <td className="time">{s.start} — {s.end}</td>
                   <td>{s.level}</td>
                   <td>{s.coach}</td>
-                  <td>{s.courts}/6</td>
+                  <td>{s.courts}/7</td>
                   <td><span className={"a-chip bc-tone-" + s.tone}>
-                    {s.tone === 'success' ? 'Jeunes' : s.tone === 'info' ? 'Loisir' : s.tone === 'primary' ? 'Compétition' : 'Famille'}
+                    {s.tone === 'primary' ? 'Encadré' : s.tone === 'warning' ? 'Famille' : 'Loisir'}
                   </span></td>
                 </tr>
               ))}
@@ -490,62 +559,203 @@ function TrainingPage() {
 }
 
 /* -----------------------------------------------------------------
-   PAGE — Pricing
+   PAGE — Pricing / Inscription
 ----------------------------------------------------------------- */
 function PricingPage() {
+  const offer = D.pricing[0];
   return (
     <>
       <PageHero
-        crumb="Accueil · Tarifs"
-        title="Tarifs & inscription"
-        lead="Les tarifs ci-dessous incluent la licence FFBaD et l'assurance fédérale. Possibilité de régler en 1, 2 ou 3 fois sans frais."
+        crumb="Accueil · Inscription"
+        title="Une licence, trois séances par semaine."
+        lead="Une formule unique pour adhérer au club, simple et claire — licence FFBaD et assurance incluses. Possibilité de régler en plusieurs fois sans frais."
       />
       <section className="a-section">
-        <div className="a-pricing">
-          {D.pricing.map(p => <PriceCard key={p.id} p={p} />)}
-        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 48, alignItems: 'flex-start' }}>
 
-        <div style={{ marginTop: 64, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
-          <div>
-            <div className="bc-eyebrow">Comment s'inscrire</div>
-            <h3 style={{ fontSize: 28, marginTop: 12, letterSpacing: '-.01em' }}>Trois étapes, dix minutes.</h3>
-            <ol style={{ paddingLeft: 0, listStyle: 'none', marginTop: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {[
-                ["01", "Téléchargez et complétez le formulaire d'inscription FFBaD."],
-                ["02", "Joignez le certificat médical (obligatoire pour les compétiteurs) ou l'attestation de questionnaire santé."],
-                ["03", "Déposez le dossier au gymnase un soir d'entraînement, ou par voie postale."],
-              ].map(([n, t]) => (
-                <li key={n} style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-                  <span style={{ flex: '0 0 auto', width: 40, height: 40, borderRadius: 8, background: 'var(--a-deep)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14, fontFamily: 'var(--ods-theme-font-family-code)' }}>{n}</span>
-                  <p style={{ fontSize: 15, lineHeight: 1.5 }}>{t}</p>
-                </li>
-              ))}
-            </ol>
-            <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
-              <button className="ods-btn ods-btn--md">
-                <i className="ods-icon ods-icon--download"></i>
-                Dossier d'inscription (.pdf)
-              </button>
-              <button className="ods-btn ods-btn--md ods-btn--primary-outline">
-                Questionnaire santé
-              </button>
+          {/* Offer card — left column */}
+          <div style={{ position: 'sticky', top: 96 }}>
+            <article className="a-price a-price--featured" style={{ padding: 32 }}>
+              <span className="badge-feat">Saison 2026 / 27</span>
+              <div>
+                <h3 style={{ fontSize: 28 }}>{offer.title}</h3>
+                <div className="sub">{offer.sub}</div>
+              </div>
+              <div className="price" style={{ fontSize: 64 }}>
+                {offer.price}€ <small style={{ fontSize: 16 }}>/ saison</small>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {offer.perks.map((perk, i) => (
+                  <span key={i} className="perk">
+                    <i className="ods-icon ods-icon--check"></i>
+                    <span>{perk}</span>
+                  </span>
+                ))}
+              </div>
+              <div style={{ marginTop: 8, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,.16)', fontSize: 13, color: 'rgba(255,255,255,.78)', lineHeight: 1.5 }}>
+                <i className="ods-icon ods-icon--circle-info" style={{ marginRight: 6 }}></i>
+                Paiement en 1, 2 ou 3 fois. Pass'Sport et coupons ANCV acceptés.
+              </div>
+            </article>
+
+            <div className="ods-message ods-message--info" style={{ padding: 18, alignItems: 'flex-start', borderRadius: 12, marginTop: 24 }}>
+              <i className="ods-icon ods-icon--lightbulb" style={{ fontSize: 18 }}></i>
+              <div>
+                <div className="ods-message__title" style={{ fontSize: 14, marginBottom: 4 }}>Bon plan</div>
+                <p style={{ fontSize: 13, lineHeight: 1.5 }}>
+                  Pass'Sport (70 € pour les 6-19 ans bénéficiaires) et coupons ANCV acceptés.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="ods-message ods-message--info" style={{ padding: 24, alignItems: 'flex-start', borderRadius: 12 }}>
-            <i className="ods-icon ods-icon--lightbulb" style={{ fontSize: 22 }}></i>
-            <div>
-              <div className="ods-message__title" style={{ fontSize: 16, marginBottom: 8 }}>Bon plan — Pass'Sport et coupons sport</div>
-              <p style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 12 }}>
-                Le club est éligible au <strong>Pass'Sport</strong> de 70 € pour les jeunes 6-19 ans bénéficiaires.
-                Nous acceptons également les <strong>coupons sport ANCV</strong> et les chèques vacances.
-              </p>
-              <a className="ods-link" href="#">En savoir plus <i className="ods-icon ods-icon--arrow-right"></i></a>
-            </div>
-          </div>
+          {/* Inscription form — right column */}
+          <InscriptionForm />
         </div>
       </section>
     </>
+  );
+}
+
+function InscriptionForm() {
+  const [f, setF] = useState({
+    firstName: '', lastName: '', birthDate: '', email: '', phone: '',
+    level: '', referral: '', comment: '', gdprAccepted: false,
+  });
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const update = (k) => (e) => {
+    const v = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setF((prev) => ({ ...prev, [k]: v }));
+  };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const r = await fetch('/api/inscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(f),
+      });
+      if (!r.ok) {
+        const txt = await r.text();
+        let parsed;
+        try { parsed = JSON.parse(txt); } catch { parsed = { error: txt }; }
+        throw new Error(parsed.error || 'Erreur inconnue');
+      }
+      setStatus('sent');
+    } catch (err) {
+      setErrorMsg(err.message || 'Erreur réseau');
+      setStatus('error');
+    }
+  };
+
+  if (status === 'sent') {
+    return (
+      <div style={{ background: '#fff', border: '1px solid var(--ods-color-neutral-100)', borderRadius: 12, padding: 40 }}>
+        <div className="ods-message ods-message--success" style={{ padding: 24, alignItems: 'flex-start' }}>
+          <i className="ods-icon ods-icon--circle-check" style={{ fontSize: 28 }}></i>
+          <div>
+            <div className="ods-message__title" style={{ fontSize: 18, marginBottom: 8 }}>Demande d'inscription envoyée</div>
+            <p style={{ fontSize: 15, lineHeight: 1.55 }}>
+              Merci {f.firstName} ! Votre demande est arrivée chez le bureau. Nous vous recontacterons par email à <strong>{f.email}</strong> dans les prochains jours pour finaliser votre inscription (règlement, certificat médical, etc.).
+            </p>
+            <p style={{ fontSize: 14, lineHeight: 1.55, marginTop: 12, color: 'var(--ods-color-neutral-700)' }}>
+              En attendant, vous pouvez <strong>venir essayer une séance librement</strong> aux horaires d'entraînement.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ background: '#fff', border: '1px solid var(--ods-color-neutral-100)', borderRadius: 12, padding: 32 }}>
+      <h3 style={{ fontSize: 24, letterSpacing: '-.01em', marginBottom: 4 }}>Formulaire d'inscription</h3>
+      <p style={{ fontSize: 14, color: 'var(--ods-color-neutral-600)', marginBottom: 24 }}>
+        Remplissez ce formulaire et le bureau vous recontactera pour finaliser l'inscription.
+      </p>
+      {status === 'error' && (
+        <div className="ods-message ods-message--critical" style={{ marginBottom: 20 }}>
+          <i className="ods-icon ods-icon--circle-exclamation"></i>
+          <div>
+            <div className="ods-message__title">Une erreur s'est produite</div>
+            <p>{errorMsg}. Réessayez ou contactez-nous par email.</p>
+          </div>
+        </div>
+      )}
+      <form onSubmit={submit} className="a-formgrid">
+        <div className="ods-field">
+          <label className="ods-field__label ods-field__label--required">Nom</label>
+          <input className="ods-input" required value={f.lastName} onChange={update('lastName')} placeholder="Tanguy" />
+        </div>
+        <div className="ods-field">
+          <label className="ods-field__label ods-field__label--required">Prénom</label>
+          <input className="ods-input" required value={f.firstName} onChange={update('firstName')} placeholder="Camille" />
+        </div>
+        <div className="ods-field">
+          <label className="ods-field__label ods-field__label--required">Date de naissance</label>
+          <input className="ods-input" type="date" required value={f.birthDate} onChange={update('birthDate')} />
+        </div>
+        <div className="ods-field">
+          <label className="ods-field__label">Niveau de pratique</label>
+          <select className="ods-input" value={f.level} onChange={update('level')}>
+            <option value="">Sélectionner —</option>
+            <option>Débutant</option>
+            <option>Loisir occasionnel</option>
+            <option>Loisir régulier</option>
+            <option>Intermédiaire</option>
+            <option>Confirmé / compétiteur</option>
+          </select>
+        </div>
+        <div className="ods-field">
+          <label className="ods-field__label ods-field__label--required">Email</label>
+          <input className="ods-input" type="email" required value={f.email} onChange={update('email')} placeholder="vous@email.com" />
+        </div>
+        <div className="ods-field">
+          <label className="ods-field__label ods-field__label--required">Téléphone</label>
+          <input className="ods-input" type="tel" required value={f.phone} onChange={update('phone')} placeholder="06 12 34 56 78" />
+        </div>
+        <div className="ods-field full">
+          <label className="ods-field__label">Comment avez-vous connu le club ?</label>
+          <input className="ods-input" value={f.referral} onChange={update('referral')} placeholder="Bouche-à-oreille, forum des associations, recherche internet…" />
+        </div>
+        <div className="ods-field full">
+          <label className="ods-field__label">Commentaire libre</label>
+          <textarea className="ods-textarea" rows={3} value={f.comment} onChange={update('comment')} placeholder="Allergies, besoins particuliers, questions…" />
+        </div>
+        <div className="full ods-row" style={{ alignItems: 'flex-start', padding: 14, background: 'var(--ods-color-neutral-025)', borderRadius: 8, marginTop: 4 }}>
+          <input className="ods-checkbox" type="checkbox" id="gdpr" required checked={f.gdprAccepted} onChange={update('gdprAccepted')} />
+          <label htmlFor="gdpr" className="ods-check-label" style={{ fontSize: 13, lineHeight: 1.5 }}>
+            J'accepte que mes données soient utilisées par BadinCaulnes pour traiter ma demande d'inscription.
+            Elles ne seront ni revendues ni partagées avec des tiers en dehors de la Fédération Française de Badminton
+            pour l'établissement de la licence.
+          </label>
+        </div>
+        <div className="full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 8 }}>
+          <span style={{ fontSize: 12, color: 'var(--ods-color-neutral-600)' }}>
+            <i className="ods-icon ods-icon--lock-close" style={{ marginRight: 4 }}></i>
+            Vos données sont envoyées de manière sécurisée.
+          </span>
+          <button type="submit" className="ods-btn ods-btn--md" disabled={status === 'sending'}>
+            {status === 'sending' ? (
+              <>
+                <i className="ods-icon ods-icon--spinner"></i>
+                Envoi en cours…
+              </>
+            ) : (
+              <>
+                <i className="ods-icon ods-icon--check"></i>
+                Envoyer ma demande d'inscription
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
@@ -977,7 +1187,7 @@ function Footer({ setPage }) {
             <li><a onClick={() => setPage("about")}>Présentation</a></li>
             <li><a onClick={() => setPage("about")}>Le bureau</a></li>
             <li><a onClick={() => setPage("training")}>Créneaux</a></li>
-            <li><a onClick={() => setPage("pricing")}>Tarifs</a></li>
+            <li><a onClick={() => setPage("pricing")}>Inscription</a></li>
           </ul>
         </div>
         <div>
