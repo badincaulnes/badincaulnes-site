@@ -17,7 +17,6 @@ const PAGES = [
   ["pricing",  "Inscription"],
   ["gallery",  "Galerie"],
   ["contact",  "Contact"],
-  ["admin",    "Admin"],
 ];
 
 function TopBar({ page, setPage }) {
@@ -35,22 +34,25 @@ function TopBar({ page, setPage }) {
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   };
 
+  // External link to the bureau CMS — same tab, leaves the React app.
+  const openBureau = () => { window.location.href = '/admin/'; };
+
   return (
     <header className="a-topbar">
       <div onClick={() => go("home")} role="button">
         <BcLogo />
       </div>
       <nav className="a-nav">
-        {PAGES.filter(p => p[0] !== "admin").map(([k, label]) => (
+        {PAGES.map(([k, label]) => (
           <button key={k} aria-current={page === k ? "page" : undefined} onClick={() => go(k)}>
             {label}
           </button>
         ))}
       </nav>
       <div className="a-cta">
-        <button className="ods-btn ods-btn--primary-ghost ods-btn--sm" onClick={() => go("admin")}>
+        <button className="ods-btn ods-btn--primary-ghost ods-btn--sm" onClick={openBureau} title="Accès réservé aux bénévoles du bureau">
           <i className="ods-icon ods-icon--lock-close"></i>
-          Espace admin
+          Espace bureau
         </button>
         <button className="ods-btn ods-btn--sm" onClick={() => go("pricing")}>
           <i className="ods-icon ods-icon--user-full"></i>
@@ -79,15 +81,15 @@ function TopBar({ page, setPage }) {
             </button>
           </div>
           <nav className="a-mobile-nav__links">
-            {PAGES.filter(p => p[0] !== "admin").map(([k, label]) => (
+            {PAGES.map(([k, label]) => (
               <button key={k} aria-current={page === k ? "page" : undefined} onClick={() => go(k)}>
                 {label}
                 <i className="ods-icon ods-icon--arrow-right"></i>
               </button>
             ))}
-            <button className="a-mobile-nav__admin" onClick={() => go("admin")}>
+            <button className="a-mobile-nav__admin" onClick={() => { setMenuOpen(false); openBureau(); }}>
               <i className="ods-icon ods-icon--lock-close"></i>
-              Espace admin
+              Espace bureau
             </button>
           </nav>
         </div>
@@ -798,6 +800,32 @@ function GalleryPage({ gallery }) {
 function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: 'Renseignement général', message: '' });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setSending(true);
+    setErrorMsg('');
+    // Netlify Forms expects URL-encoded form data on the site root.
+    const body = new URLSearchParams({
+      'form-name': 'contact',
+      ...form,
+    }).toString();
+    try {
+      const r = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      if (!r.ok) throw new Error('Erreur ' + r.status);
+      setSent(true);
+    } catch (err) {
+      setErrorMsg(err.message || 'Erreur réseau');
+    } finally {
+      setSending(false);
+    }
+  };
   return (
     <>
       <PageHero
@@ -860,18 +888,40 @@ function ContactPage() {
               </div>
             </div>
           ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="a-formgrid">
+            <form
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onSubmit={submit}
+              className="a-formgrid"
+            >
+              {/* Required by Netlify Forms to identify this form. */}
+              <input type="hidden" name="form-name" value="contact" />
+              {/* Spam honeypot — hidden from real users, but bots fill it. */}
+              <p style={{ display: 'none' }}>
+                <label>Ne pas remplir : <input name="bot-field" /></label>
+              </p>
+              {errorMsg && (
+                <div className="ods-message ods-message--critical full" style={{ marginBottom: 4 }}>
+                  <i className="ods-icon ods-icon--circle-exclamation"></i>
+                  <div>
+                    <div className="ods-message__title">Erreur d'envoi</div>
+                    <p>{errorMsg}. Vous pouvez nous écrire directement à <a href={"mailto:" + D.club.contact.email}>{D.club.contact.email}</a>.</p>
+                  </div>
+                </div>
+              )}
               <div className="ods-field">
                 <label className="ods-field__label ods-field__label--required">Nom et prénom</label>
-                <input className="ods-input" placeholder="Ex. Camille Tanguy" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                <input className="ods-input" name="name" placeholder="Ex. Camille Tanguy" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
               </div>
               <div className="ods-field">
                 <label className="ods-field__label ods-field__label--required">Email</label>
-                <input className="ods-input" type="email" placeholder="vous@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+                <input className="ods-input" name="email" type="email" placeholder="vous@email.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
               </div>
               <div className="ods-field full">
                 <label className="ods-field__label">Sujet</label>
-                <select className="ods-input" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}>
+                <select className="ods-input" name="subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}>
                   <option>Renseignement général</option>
                   <option>Demande d'essai</option>
                   <option>Inscription saison 2026/27</option>
@@ -881,288 +931,27 @@ function ContactPage() {
               </div>
               <div className="ods-field full">
                 <label className="ods-field__label ods-field__label--required">Votre message</label>
-                <textarea className="ods-textarea" rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
+                <textarea className="ods-textarea" name="message" rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required />
               </div>
-              <div className="full" style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
-                <button type="button" className="ods-btn ods-btn--md ods-btn--neutral-ghost">Annuler</button>
-                <button type="submit" className="ods-btn ods-btn--md">Envoyer le message<i className="ods-icon ods-icon--arrow-right"></i></button>
+              <div className="full" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: 12, color: 'var(--ods-color-neutral-600)' }}>
+                  <i className="ods-icon ods-icon--lock-close" style={{ marginRight: 4 }}></i>
+                  Le bureau reçoit votre message par email.
+                </span>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <button type="submit" className="ods-btn ods-btn--md" disabled={sending}>
+                    {sending ? (
+                      <><i className="ods-icon ods-icon--spinner"></i> Envoi en cours…</>
+                    ) : (
+                      <>Envoyer le message<i className="ods-icon ods-icon--arrow-right"></i></>
+                    )}
+                  </button>
+                </div>
               </div>
             </form>
           )}
         </div>
       </section>
-    </>
-  );
-}
-
-/* -----------------------------------------------------------------
-   PAGE — Admin (simple post form)
------------------------------------------------------------------ */
-function AdminPage({ news, events, addNews, addEvent, removeNews, removeEvent }) {
-  const [tab, setTab] = useState("post-news");
-  return (
-    <section style={{ padding: '40px', background: 'var(--ods-color-neutral-025)', minHeight: 700 }}>
-      <div className="ods-breadcrumb" style={{ marginBottom: 12 }}>
-        <a href="#">Tableau de bord</a><span className="ods-breadcrumb__sep">›</span><span className="ods-breadcrumb__current">Publication</span>
-      </div>
-      <h1 style={{ fontSize: 32, marginBottom: 24 }}>Espace administrateur</h1>
-
-      <div className="a-admin-shell">
-        <aside className="a-admin-side">
-          <h4>Publication</h4>
-          <button className={tab === "post-news" ? "is-active" : ""} onClick={() => setTab("post-news")}>
-            <i className="ods-icon ods-icon--pen"></i> Nouvelle actualité
-          </button>
-          <button className={tab === "post-event" ? "is-active" : ""} onClick={() => setTab("post-event")}>
-            <i className="ods-icon ods-icon--calendar"></i> Nouvel événement
-          </button>
-          <h4 style={{ marginTop: 12 }}>Modération</h4>
-          <button className={tab === "manage-news" ? "is-active" : ""} onClick={() => setTab("manage-news")}>
-            <i className="ods-icon ods-icon--list"></i> Actualités publiées
-            <span style={{ marginLeft: 'auto', fontSize: 11, background: 'var(--ods-color-neutral-100)', padding: '2px 7px', borderRadius: 10 }}>{news.length}</span>
-          </button>
-          <button className={tab === "manage-events" ? "is-active" : ""} onClick={() => setTab("manage-events")}>
-            <i className="ods-icon ods-icon--list"></i> Événements à venir
-            <span style={{ marginLeft: 'auto', fontSize: 11, background: 'var(--ods-color-neutral-100)', padding: '2px 7px', borderRadius: 10 }}>{events.length}</span>
-          </button>
-          <h4 style={{ marginTop: 12 }}>Paramètres</h4>
-          <button><i className="ods-icon ods-icon--cog"></i> Préférences du site</button>
-          <button><i className="ods-icon ods-icon--user"></i> Membres du bureau</button>
-          <div style={{ marginTop: 24, padding: 12, background: 'var(--ods-color-primary-050)', borderRadius: 8, fontSize: 12, color: 'var(--a-deep)', display: 'flex', alignItems: 'center', gap: 8 }}>
-            <i className="ods-icon ods-icon--circle-user" style={{ fontSize: 20 }}></i>
-            <div>
-              <div style={{ fontWeight: 700 }}>Hélène Marchand</div>
-              <div style={{ color: 'var(--ods-color-neutral-600)' }}>Présidente · admin</div>
-            </div>
-          </div>
-        </aside>
-
-        <main className="a-admin-main">
-          {tab === "post-news" && <AdminNewsForm addNews={addNews} />}
-          {tab === "post-event" && <AdminEventForm addEvent={addEvent} />}
-          {tab === "manage-news" && <AdminList items={news} onDelete={removeNews} type="news" />}
-          {tab === "manage-events" && <AdminList items={events} onDelete={removeEvent} type="event" />}
-        </main>
-      </div>
-    </section>
-  );
-}
-
-function AdminNewsForm({ addNews }) {
-  const [f, setF] = useState({ title: '', excerpt: '', category: 'Compétition', author: 'Hélène M.' });
-  const [posted, setPosted] = useState(false);
-  const submit = (e) => {
-    e.preventDefault();
-    const toneMap = { 'Compétition': 'primary', 'Club': 'info', 'Jeunes': 'success', 'Pratique': 'warning' };
-    addNews({
-      id: 'n-' + Date.now(),
-      category: f.category,
-      categoryTone: toneMap[f.category] || 'info',
-      date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }),
-      title: f.title,
-      excerpt: f.excerpt,
-      author: f.author,
-      reads: 0,
-    });
-    setPosted(true);
-    setF({ title: '', excerpt: '', category: 'Compétition', author: 'Hélène M.' });
-    setTimeout(() => setPosted(false), 3500);
-  };
-  return (
-    <>
-      <h2 style={{ marginBottom: 4 }}>Publier une actualité</h2>
-      <p style={{ fontSize: 14, color: 'var(--ods-color-neutral-600)', marginBottom: 24 }}>
-        L'article sera visible immédiatement sur la page d'accueil et dans la rubrique Actualités.
-      </p>
-      {posted && (
-        <div className="ods-message ods-message--success" style={{ marginBottom: 20 }}>
-          <i className="ods-icon ods-icon--circle-check"></i>
-          <div>
-            <div className="ods-message__title">Actualité publiée</div>
-            <p>Vous pouvez la retrouver en première position sur la page d'accueil.</p>
-          </div>
-        </div>
-      )}
-      <form onSubmit={submit} className="a-formgrid">
-        <div className="ods-field full">
-          <label className="ods-field__label ods-field__label--required">Titre</label>
-          <input className="ods-input" placeholder="Ex. Victoire de l'équipe 1 à Lannion" required value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} />
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label ods-field__label--required">Catégorie</label>
-          <select className="ods-input" value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })}>
-            <option>Compétition</option>
-            <option>Club</option>
-            <option>Jeunes</option>
-            <option>Pratique</option>
-          </select>
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label">Auteur</label>
-          <input className="ods-input" value={f.author} onChange={(e) => setF({ ...f, author: e.target.value })} />
-        </div>
-        <div className="ods-field full">
-          <label className="ods-field__label ods-field__label--required">Résumé</label>
-          <textarea className="ods-textarea" rows={3} placeholder="Deux à trois phrases qui résument l'actualité — c'est ce qui s'affiche en aperçu." required value={f.excerpt} onChange={(e) => setF({ ...f, excerpt: e.target.value })} />
-        </div>
-        <div className="ods-field full">
-          <label className="ods-field__label">Photo de couverture</label>
-          <div className="ods-file-upload">
-            <div className="ods-file-upload__icon"><i className="ods-icon ods-icon--cloud-upload"></i></div>
-            <div className="ods-file-upload__title">Déposez une image ou cliquez pour parcourir</div>
-            <div className="ods-file-upload__sub">JPG ou PNG, 5 Mo max. Idéal en format 16:9.</div>
-          </div>
-        </div>
-        <div className="full" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 12, color: 'var(--ods-color-neutral-600)', alignSelf: 'center' }}>
-            <i className="ods-icon ods-icon--circle-info" style={{ marginRight: 4 }}></i>
-            Brouillon enregistré automatiquement il y a 1 min
-          </span>
-          <div style={{ display: 'flex', gap: 12 }}>
-            <button type="button" className="ods-btn ods-btn--md ods-btn--neutral-ghost">Enregistrer en brouillon</button>
-            <button type="submit" className="ods-btn ods-btn--md">
-              <i className="ods-icon ods-icon--check"></i>
-              Publier l'actualité
-            </button>
-          </div>
-        </div>
-      </form>
-    </>
-  );
-}
-
-function AdminEventForm({ addEvent }) {
-  const [f, setF] = useState({ title: '', date: '2026-06-15', time: '19:00 – 22:00', place: 'Gymnase Léon Pellan', kind: 'Tournoi', description: '', capacity: 64 });
-  const [posted, setPosted] = useState(false);
-  const submit = (e) => {
-    e.preventDefault();
-    const toneMap = { 'Tournoi': 'primary', 'Interclubs': 'info', 'Découverte': 'success', 'Convivial': 'warning', 'Officiel': 'primary' };
-    const d = fmtDate(f.date);
-    addEvent({
-      id: 'e-' + Date.now(),
-      date: d,
-      time: f.time,
-      title: f.title,
-      place: f.place,
-      kind: f.kind,
-      kindTone: toneMap[f.kind] || 'info',
-      participants: 0,
-      capacity: parseInt(f.capacity, 10) || 0,
-      description: f.description,
-    });
-    setPosted(true);
-    setF({ ...f, title: '', description: '' });
-    setTimeout(() => setPosted(false), 3500);
-  };
-  return (
-    <>
-      <h2 style={{ marginBottom: 4 }}>Programmer un événement</h2>
-      <p style={{ fontSize: 14, color: 'var(--ods-color-neutral-600)', marginBottom: 24 }}>
-        L'événement apparaîtra dans l'agenda et — si la date est proche — sur la page d'accueil.
-      </p>
-      {posted && (
-        <div className="ods-message ods-message--success" style={{ marginBottom: 20 }}>
-          <i className="ods-icon ods-icon--circle-check"></i>
-          <div>
-            <div className="ods-message__title">Événement programmé</div>
-            <p>Vous pouvez le retrouver en tête de l'agenda.</p>
-          </div>
-        </div>
-      )}
-      <form onSubmit={submit} className="a-formgrid">
-        <div className="ods-field full">
-          <label className="ods-field__label ods-field__label--required">Titre</label>
-          <input className="ods-input" placeholder="Ex. Tournoi de doubles, soirée galette…" required value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} />
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label ods-field__label--required">Date</label>
-          <input className="ods-input" type="date" required value={f.date} onChange={(e) => setF({ ...f, date: e.target.value })} />
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label ods-field__label--required">Horaire</label>
-          <input className="ods-input" placeholder="19:00 – 22:00" required value={f.time} onChange={(e) => setF({ ...f, time: e.target.value })} />
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label">Type d'événement</label>
-          <select className="ods-input" value={f.kind} onChange={(e) => setF({ ...f, kind: e.target.value })}>
-            <option>Tournoi</option>
-            <option>Interclubs</option>
-            <option>Découverte</option>
-            <option>Convivial</option>
-            <option>Officiel</option>
-          </select>
-        </div>
-        <div className="ods-field">
-          <label className="ods-field__label">Capacité</label>
-          <input className="ods-input" type="number" min="0" value={f.capacity} onChange={(e) => setF({ ...f, capacity: e.target.value })} />
-        </div>
-        <div className="ods-field full">
-          <label className="ods-field__label">Lieu</label>
-          <input className="ods-input" value={f.place} onChange={(e) => setF({ ...f, place: e.target.value })} />
-        </div>
-        <div className="ods-field full">
-          <label className="ods-field__label ods-field__label--required">Description</label>
-          <textarea className="ods-textarea" rows={3} required value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} placeholder="Détails pratiques, format, à apporter…" />
-        </div>
-        <div className="full ods-row" style={{ marginTop: -4 }}>
-          <input className="ods-checkbox" type="checkbox" id="notify" defaultChecked />
-          <label htmlFor="notify" className="ods-check-label">Notifier les adhérents par email lors de la publication</label>
-        </div>
-        <div className="full" style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
-          <button type="button" className="ods-btn ods-btn--md ods-btn--neutral-ghost">Annuler</button>
-          <button type="submit" className="ods-btn ods-btn--md">
-            <i className="ods-icon ods-icon--calendar"></i>
-            Programmer l'événement
-          </button>
-        </div>
-      </form>
-    </>
-  );
-}
-
-function AdminList({ items, onDelete, type }) {
-  return (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h2>{type === 'news' ? 'Actualités publiées' : 'Événements à venir'}</h2>
-        <div className="ods-row">
-          <div className="ods-input-wrap" style={{ width: 240 }}>
-            <i className="ods-icon ods-icon--magnifying-glass"></i>
-            <input className="ods-input ods-input--sm" placeholder="Rechercher…" />
-          </div>
-        </div>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {items.map((it) => (
-          <div key={it.id} style={{
-            display: 'grid', gridTemplateColumns: type === 'event' ? '60px 1fr auto' : '1fr auto',
-            gap: 16, alignItems: 'center',
-            padding: '12px 16px', background: 'var(--ods-color-neutral-025)',
-            border: '1px solid var(--ods-color-neutral-100)', borderRadius: 8,
-          }}>
-            {type === 'event' && (
-              <div className="a-event__date" style={{ width: 60, padding: '6px 4px' }}>
-                <span className="d" style={{ fontSize: 22 }}>{it.date.d}</span>
-                <span className="m" style={{ fontSize: 9 }}>{it.date.m}</span>
-              </div>
-            )}
-            <div>
-              <div style={{ fontWeight: 700, color: 'var(--ods-color-primary-800)', fontSize: 14 }}>{it.title}</div>
-              <div style={{ fontSize: 12, color: 'var(--ods-color-neutral-600)', marginTop: 2 }}>
-                {type === 'news' ? `${it.category} · ${it.date} · par ${it.author}` : `${it.kind} · ${it.time} · ${it.place}`}
-              </div>
-            </div>
-            <div style={{ display: 'flex', gap: 6 }}>
-              <button className="ods-btn ods-btn--sm ods-btn--neutral-ghost" title="Modifier">
-                <i className="ods-icon ods-icon--pen"></i>
-              </button>
-              <button className="ods-btn ods-btn--sm ods-btn--critical-ghost" title="Supprimer" onClick={() => onDelete(it.id)}>
-                <i className="ods-icon ods-icon--trash"></i>
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
     </>
   );
 }
@@ -1272,7 +1061,6 @@ function App() {
       {page === "pricing"  && <PricingPage />}
       {page === "gallery"  && <GalleryPage gallery={gallery} />}
       {page === "contact"  && <ContactPage />}
-      {page === "admin"    && <AdminPage   news={news} events={events} addNews={addNews} addEvent={addEvent} removeNews={removeNews} removeEvent={removeEvent} />}
       <Footer setPage={setPage} />
     </div>
   );
