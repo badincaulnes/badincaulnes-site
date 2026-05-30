@@ -17,10 +17,10 @@ window.BC_DATA = {
       hours: "Lundi · Jeudi · Dimanche",
     },
     contact: {
-      email: "contact@badincaulnes.fr",
-      phone: "+33 2 96 88 51 04",
-      facebook: "badincaulnes",
-      instagram: "@badincaulnes",
+      email: "badincaulnes@gmail.com",
+      mapUrl: "https://maps.app.goo.gl/isfM9RBKcArZNcNx6",
+      facebook: "https://www.facebook.com/badincaulnes/",
+      instagram: "https://www.instagram.com/badincaulnes",
     },
     season: "2025 – 2026",
   },
@@ -43,7 +43,7 @@ window.BC_DATA = {
   slots: [
     { day: "Lundi",    start: "19:00", end: "22:00", level: "Loisir adulte",                       coach: "Encadrement bénévole", courts: 7, tone: "info"    },
     { day: "Jeudi",    start: "19:00", end: "22:00", level: "Loisir adulte",                       coach: "Animateur OIS de 19:30 à 20:30", courts: 7, tone: "primary" },
-    { day: "Dimanche", start: "10:00", end: "12:00", level: "Loisir — séance dominicale",           coach: "Encadrement bénévole", courts: 7, tone: "warning" },
+    { day: "Dimanche", start: "10:00", end: "12:00", level: "Loisir — séance dominicale",           coach: "Encadrement bénévole", courts: 7, tone: "info" },
   ],
 
   pricing: [
@@ -78,15 +78,18 @@ window.BC_DATA = {
   faq: [
     { q: "Faut-il son propre matériel ?",
       a: "Non, le club prête raquettes et volants pour les premières séances. N'hésitez pas à venir essayer." },
-    { q: "Y a-t-il un tarif réduit en cours de saison ?",
-      a: "Oui — à partir de la mi-saison, la cotisation passe de 50 € à 25 €. Idéal si vous voulez nous rejoindre en cours d'année." },
     { q: "Puis-je venir essayer avant de m'inscrire ?",
       a: "Oui, la première séance est libre et gratuite. Passez simplement à l'un des créneaux de la semaine, le matériel est prêté." },
-    { q: "Le club organise-t-il des tournois ?",
-      a: "Oui, nous organisons un tournoi interne en fin de saison et plusieurs séances conviviales tout au long de l'année." },
+    { q: "Quand ont lieu les séances ?",
+      a: "Trois séances par semaine : lundi 19h-22h, jeudi 19h-22h et dimanche 10h-12h, au complexe sportif Léon Pellan." },
   ],
 
-  // News and events are loaded asynchronously — see content-loader.js
-  news: [],
+  // Agenda — événements statiques, saisis directement dans le code.
+  // Laisser vide tant que l'agenda de la saison n'est pas connu.
+  // Format d'un événement :
+  //   { id:"e1", date:{ d:"14", m:"JUIN" }, time:"19:00 – 22:00",
+  //     title:"…", place:"Gymnase Léon Pellan", kind:"Tournoi",
+  //     kindTone:"primary", description:"…" }
+  // kindTone : primary (teal) · info (navy) · success (lime) · warning
   events: [],
 };

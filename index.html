@@ -2,15 +2,57 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<title>BadinCaulnes — Club de badminton de Caulnes</title>
-<meta name="description" content="BadinCaulnes — club de badminton de Caulnes (22). Actualités, agenda, créneaux d'entraînement, tarifs et inscription." />
-<link rel="icon" type="image/png" href="/assets/logo-badincaulnes-256.png">
+<title>BadinCaulnes — Club de badminton de Caulnes (22)</title>
+<meta name="description" content="BadinCaulnes, le club de badminton loisir de Caulnes (Côtes-d'Armor). Trois séances par semaine ouvertes à tous, dans une ambiance conviviale. Créneaux, agenda et contact." />
+<meta name="keywords" content="badminton Caulnes, club badminton Caulnes, BadinCaulnes, badminton Côtes-d'Armor, badminton 22350, badminton loisir Caulnes" />
+<meta name="author" content="BadinCaulnes" />
+<link rel="canonical" href="https://velvety-selkie-437eb0.netlify.app/" />
+<meta name="robots" content="index, follow" />
+<meta name="geo.region" content="FR-22" />
+<meta name="geo.placename" content="Caulnes" />
+
+<!-- Open Graph / réseaux sociaux -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="BadinCaulnes" />
+<meta property="og:title" content="BadinCaulnes — Club de badminton de Caulnes" />
+<meta property="og:description" content="Le club de badminton loisir de Caulnes (22). Trois séances par semaine ouvertes à tous, dans une ambiance conviviale." />
+<meta property="og:url" content="https://velvety-selkie-437eb0.netlify.app/" />
+<meta property="og:image" content="https://velvety-selkie-437eb0.netlify.app/assets/logo-badincaulnes-256.png" />
+<meta name="twitter:card" content="summary" />
+
+<!-- Données structurées pour Google (fiche club local) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsClub",
+  "name": "BadinCaulnes",
+  "sport": "Badminton",
+  "description": "Club de badminton loisir de Caulnes (Côtes-d'Armor). Trois séances par semaine ouvertes à tous.",
+  "url": "https://velvety-selkie-437eb0.netlify.app/",
+  "email": "badincaulnes@gmail.com",
+  "logo": "https://velvety-selkie-437eb0.netlify.app/assets/logo-badincaulnes-256.png",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Complexe sportif Léon Pellan, Rue de la Hutte aux Renards",
+    "addressLocality": "Caulnes",
+    "postalCode": "22350",
+    "addressRegion": "Côtes-d'Armor",
+    "addressCountry": "FR"
+  },
+  "sameAs": [
+    "https://www.facebook.com/badincaulnes/",
+    "https://www.instagram.com/badincaulnes"
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="assets/logo-badincaulnes-256.png">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/ds/colors_and_type.css" />
-<link rel="stylesheet" href="/ds/components.css" />
-<link rel="stylesheet" href="/ds/icons.css" />
-<link rel="stylesheet" href="/ds/badincaulnes.css" />
-<link rel="stylesheet" href="/ds/brand.css" />
+<link rel="stylesheet" href="ds/colors_and_type.css" />
+<link rel="stylesheet" href="ds/components.css" />
+<link rel="stylesheet" href="ds/icons.css" />
+<link rel="stylesheet" href="ds/badincaulnes.css" />
+<link rel="stylesheet" href="ds/brand.css" />
 <style>
   /* Direction A — bold, contrasted, sportif, palette BadinCaulnes */
   :root{
@@ -363,6 +405,9 @@
     border-bottom: 0 !important;
   }
   .a-mobile-nav__admin::after{ content: none !important; }
+
+  /* Page hero (sub pages) */
+  .a-page-hero{
     background: var(--a-deeper); color:#fff; padding: 64px 40px 56px; position:relative; overflow:hidden;
   }
   .a-page-hero::before{
@@ -375,6 +420,53 @@
   .a-page-hero h1{ color:#fff; font-size: 56px; letter-spacing: -.02em; position:relative; }
   .a-page-hero p{ color: rgba(255,255,255,.78); margin-top: 14px; font-size: 17px; max-width: 600px; position:relative; }
   .a-page-hero .crumb{ font-size: 12px; color: var(--a-accent); letter-spacing: .14em; text-transform: uppercase; font-weight: 700; position:relative; }
+
+  /* Contact cards */
+  .a-contact-cards{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .a-contact-card{
+    display:flex; align-items:center; gap: 16px;
+    padding: 20px 22px;
+    background:#fff; border:1px solid var(--ods-color-neutral-100); border-radius: 14px;
+    text-decoration: none; cursor: pointer;
+    transition: transform .18s ease-out, box-shadow .18s ease-out, border-color .18s ease-out;
+  }
+  .a-contact-card:hover{ transform: translateY(-2px); box-shadow: 0 12px 28px rgba(7,50,76,.10); border-color: var(--ods-color-primary-200); }
+  .a-contact-card__ic{
+    flex: 0 0 auto; width: 52px; height: 52px; border-radius: 12px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background: var(--bc-teal-tint); color: var(--bc-navy);
+  }
+  .a-contact-card__ic .ods-icon{ font-size: 22px; }
+  .a-contact-card__ic--fb{ background: #1877f2; color:#fff; }
+  .a-contact-card__ic--ig{ background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%); color:#fff; }
+  .a-contact-card > div{ flex: 1; min-width: 0; }
+  .a-contact-card strong{ display:block; font-weight: 700; color: var(--ods-color-primary-800); font-size: 15px; }
+  .a-contact-card span{ display:block; font-size: 13px; color: var(--ods-color-neutral-600); line-height: 1.45; margin-top: 3px; }
+  .a-contact-card__go{ color: var(--ods-color-neutral-400); font-size: 14px; flex:0 0 auto; }
+  .a-contact-card:hover .a-contact-card__go{ color: var(--bc-teal); }
+
+  .a-contact-hours{
+    display:flex; align-items:flex-start; gap: 14px;
+    margin-top: 24px; padding: 18px 22px;
+    background: var(--ods-color-neutral-025); border-radius: 12px;
+  }
+  .a-contact-hours > .ods-icon{ font-size: 20px; color: var(--bc-teal); margin-top: 2px; }
+  .a-contact-hours strong{ display:block; font-weight: 700; color: var(--ods-color-primary-800); font-size: 14px; }
+  .a-contact-hours span{ display:block; font-size: 13px; color: var(--ods-color-neutral-700); margin-top: 2px; line-height: 1.45; }
+
+  /* Footer social */
+  .a-footer__social{ display:flex; gap: 10px; margin-top: 18px; }
+  .a-footer__social a{
+    width: 38px; height: 38px; border-radius: 9px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,.08); color: rgba(255,255,255,.85);
+    transition: background .15s, color .15s;
+  }
+  .a-footer__social a:hover{ background: var(--a-accent); color: var(--bc-navy-deep); }
+
+  @media (max-width: 640px){
+    .a-contact-cards{ grid-template-columns: 1fr; }
+  }
 
   /* ─────────────────────────────────────────────────────
      RESPONSIVE — tablet (<= 980px) and mobile (<= 640px)
@@ -490,36 +582,15 @@
     .a-page-hero h1{ font-size: 30px; line-height: 1.08; }
   }
 </style>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-<!-- Hidden static form so Netlify Forms detects the "contact" form fields at build time.
-     The real form is rendered by React with the same name + same fields. -->
-<form name="contact" netlify netlify-honeypot="bot-field" hidden>
-  <input type="text" name="name" />
-  <input type="email" name="email" />
-  <input type="text" name="subject" />
-  <textarea name="message"></textarea>
-  <input type="text" name="bot-field" />
-</form>
-
 <div id="root"></div>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="/data.js"></script>
-<script src="/content-loader.js"></script>
-<script type="text/babel" src="/directions/shared-bits.jsx"></script>
-<script type="text/babel" src="/directions/app-a.jsx"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
-      }
-    });
-  }
-</script>
+<script src="data.js"></script>
+<script type="text/babel" src="directions/shared-bits.jsx"></script>
+<script type="text/babel" src="directions/app-a.jsx"></script>
 </body>
 </html>

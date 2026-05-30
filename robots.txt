@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://velvety-selkie-437eb0.netlify.app/sitemap.xml

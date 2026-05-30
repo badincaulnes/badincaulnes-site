@@ -1,19 +1,4 @@
-# Netlify configuration for the BadinCaulnes site.
-# This is a static site — no build step, just publish the project root as-is.
-
+# Netlify — site statique BadinCaulnes. Aucun build, on publie la racine telle quelle.
 [build]
   publish = "."
   command = ""
-
-# Cache the JSON content files for a very short time so updates from the
-# Decap CMS appear quickly on the live site (without hammering the CDN).
-[[headers]]
-  for = "/content/*.json"
-  [headers.values]
-    Cache-Control = "public, max-age=60, must-revalidate"
-
-# Make sure /admin loads the CMS even if someone forgets the trailing slash.
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 301

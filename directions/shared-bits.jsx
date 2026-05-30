@@ -1,8 +1,7 @@
 // Shared visual atoms used by both Direction A and Direction B.
 
-// Logo path — absolute from site root so it works whether the HTML
-// loading us is at / or at /directions/.
-const LOGO_SRC = "/assets/logo-badincaulnes-transparent.png";
+// Logo path — relative to index.html at the site root.
+const LOGO_SRC = "assets/logo-badincaulnes-transparent.png";
 
 // Caulnes wordmark — letters follow the city's charte graphique:
 //   C A U L → teal · N → slate · E S → lime
