@@ -469,6 +469,33 @@
     .a-contact-cards{ grid-template-columns: 1fr; }
   }
 
+  /* Follow band (home page) */
+  .a-follow-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .a-follow-card{
+    display:flex; align-items:center; gap: 18px;
+    padding: 24px 26px; border-radius: 16px;
+    text-decoration: none; color: #fff;
+    transition: transform .18s ease-out, box-shadow .18s ease-out;
+    position: relative; overflow: hidden;
+  }
+  .a-follow-card:hover{ transform: translateY(-3px); box-shadow: 0 16px 36px rgba(7,50,76,.22); }
+  .a-follow-card--fb{ background: #1877f2; }
+  .a-follow-card--ig{ background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%); }
+  .a-follow-card__ic{
+    flex:0 0 auto; width: 58px; height: 58px; border-radius: 14px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background: rgba(255,255,255,.18); color:#fff;
+  }
+  .a-follow-card__txt{ flex:1; min-width:0; }
+  .a-follow-card__txt strong{ display:block; font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
+  .a-follow-card__txt span{ display:block; font-size: 14px; color: rgba(255,255,255,.85); margin-top: 2px; }
+  .a-follow-card__go{ flex:0 0 auto; font-size: 16px; color:#fff; opacity: .85; transition: transform .15s ease-out; }
+  .a-follow-card:hover .a-follow-card__go{ transform: translateX(4px); }
+
+  @media (max-width: 640px){
+    .a-follow-grid{ grid-template-columns: 1fr; }
+  }
+
   /* ─────────────────────────────────────────────────────
      RESPONSIVE — tablet (<= 980px) and mobile (<= 640px)
      ─────────────────────────────────────────────────── */

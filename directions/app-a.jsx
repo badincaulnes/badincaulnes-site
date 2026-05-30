@@ -216,8 +216,43 @@ function HomePage({ events, setPage }) {
         </section>
       )}
 
+      <FollowBand />
+
       <ClosingStrip setPage={setPage} />
     </>
+  );
+}
+
+function FollowBand() {
+  const c = D.club.contact;
+  return (
+    <section className="a-section a-follow">
+      <div className="a-section-head">
+        <div>
+          <div className="bc-eyebrow">Restez connectés</div>
+          <h2 style={{ marginTop: 10 }}>Suivez le club au quotidien</h2>
+          <p className="sub">Résultats, photos, annonces de dernière minute : toute la vie du club se passe sur nos réseaux.</p>
+        </div>
+      </div>
+      <div className="a-follow-grid">
+        <a className="a-follow-card a-follow-card--fb" href={c.facebook} target="_blank" rel="noopener">
+          <span className="a-follow-card__ic"><IconFacebook size={28} /></span>
+          <div className="a-follow-card__txt">
+            <strong>Facebook</strong>
+            <span>@badincaulnes</span>
+          </div>
+          <i className="ods-icon ods-icon--arrow-right a-follow-card__go"></i>
+        </a>
+        <a className="a-follow-card a-follow-card--ig" href={c.instagram} target="_blank" rel="noopener">
+          <span className="a-follow-card__ic"><IconInstagram size={28} /></span>
+          <div className="a-follow-card__txt">
+            <strong>Instagram</strong>
+            <span>@badincaulnes</span>
+          </div>
+          <i className="ods-icon ods-icon--arrow-right a-follow-card__go"></i>
+        </a>
+      </div>
+    </section>
   );
 }
 
